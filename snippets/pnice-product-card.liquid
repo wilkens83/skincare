@@ -1,0 +1,112 @@
+{%- comment -%}
+  P-nice luxury product card.
+  Accepts either a `product` object (real Shopify product) or a `block` (static).
+{%- endcomment -%}
+
+{%- liquid
+  if product
+    assign card_title = product.title
+    assign card_url = product.url
+    assign card_image = product.featured_image
+    assign card_image_alt = product.images[1]
+    assign card_subtitle = product.description | strip_html | truncatewords: 12
+    assign card_price = product.price | money
+    assign card_compare = ''
+    if product.compare_at_price > product.price
+      assign card_compare = product.compare_at_price | money
+    endif
+    assign card_tag = ''
+    assign tag_gold = false
+    if product.metafields.custom.tag != blank
+      assign card_tag = product.metafields.custom.tag
+    elsif product.available == false
+      assign card_tag = 'Sold Out'
+    elsif card_compare != ''
+      assign card_tag = 'Sale'
+      assign tag_gold = true
+    endif
+    assign card_rating = product.metafields.reviews.rating.value | default: ''
+    assign card_review_count = product.metafields.reviews.rating_count | default: ''
+    assign add_to_cart_id = product.first_available_variant.id
+  else
+    assign card_title = block.settings.title
+    assign card_url = block.settings.link | default: '#'
+    assign card_image = block.settings.image
+    assign card_image_alt = block.settings.image_alt
+    assign card_fallback_asset = block.settings.fallback_asset
+    assign card_fallback_asset_alt = block.settings.fallback_asset_alt
+    assign card_subtitle = block.settings.subtitle
+    assign card_price = block.settings.price
+    assign card_compare = block.settings.compare_price
+    assign card_tag = block.settings.tag
+    assign tag_gold = block.settings.gold_tag
+    assign card_rating = block.settings.rating
+    assign card_review_count = block.settings.review_count
+    assign add_to_cart_id = ''
+  endif
+-%}
+
+<article class="pnice-card" {% if block %}{{ block.shopify_attributes }}{% endif %}>
+  <a href="{{ card_url }}" class="pnice-card__media-link" aria-label="{{ card_title }}">
+    <div class="pnice-card__media">
+      {%- if card_tag != blank -%}
+        <span class="pnice-card__tag {% if tag_gold %}pnice-card__tag--gold{% endif %}">{{ card_tag }}</span>
+      {%- endif -%}
+      {%- if card_image != blank -%}
+        {{ card_image | image_url: width: 800 | image_tag:
+          widths: '300, 500, 800',
+          sizes: '(min-width: 880px) 33vw, 90vw',
+          loading: 'lazy',
+          alt: card_title
+        }}
+      {%- elsif card_fallback_asset != blank -%}
+        <img src="{{ card_fallback_asset | asset_url }}" alt="{{ card_title }}" loading="lazy" width="800" height="800">
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+      {%- if card_image_alt != blank and card_image_alt != card_image -%}
+        {{ card_image_alt | image_url: width: 800 | image_tag:
+          widths: '300, 500, 800',
+          sizes: '(min-width: 880px) 33vw, 90vw',
+          loading: 'lazy',
+          class: 'pnice-card__media-alt',
+          alt: card_title
+        }}
+      {%- elsif card_fallback_asset_alt != blank -%}
+        <img class="pnice-card__media-alt" src="{{ card_fallback_asset_alt | asset_url }}" alt="{{ card_title }}" loading="lazy" width="800" height="800">
+      {%- endif -%}
+    </div>
+  </a>
+  <div class="pnice-card__body">
+    {%- if card_rating != blank -%}
+      <div class="pnice-card__stars" aria-label="Rated {{ card_rating }} out of 5">
+        {%- for i in (1..5) -%}
+          <svg class="pnice-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.6 1.4 6.8L12 17.8 5.9 21.3l1.4-6.8L2.2 9.9l6.9-.8z"/></svg>
+        {%- endfor -%}
+        <small>{{ card_rating }}{% if card_review_count != blank %} ({{ card_review_count }}){% endif %}</small>
+      </div>
+    {%- endif -%}
+    <h3><a href="{{ card_url }}" style="text-decoration:none;color:inherit;">{{ card_title }}</a></h3>
+    {%- if card_subtitle != blank -%}
+      <p class="pnice-card__desc">{{ card_subtitle }}</p>
+    {%- endif -%}
+    <div class="pnice-card__foot">
+      <div class="pnice-card__price">
+        {{ card_price }}
+        {%- if card_compare != blank -%}<s>{{ card_compare }}</s>{%- endif -%}
+      </div>
+      {%- if product -%}
+        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" data-type="add-to-cart-form" novalidate>
+          <input type="hidden" name="id" value="{{ add_to_cart_id }}">
+          <button class="pnice-card__add" type="submit" aria-label="Add {{ card_title }} to cart"{% unless product.available %} disabled{% endunless %}>
+            <svg class="pnice-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </form>
+      {%- else -%}
+        <a href="{{ card_url }}" class="pnice-card__add" aria-label="View {{ card_title }}">
+          <svg class="pnice-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</article>

@@ -1,290 +1,161 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */{
+{
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
+    "pnice_announcement": {
+      "type": "pnice-announcement",
       "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
-          "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground-heading)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
-          "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-secondary",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
-        }
+        "b1": { "type": "trust_item", "settings": { "text": "Clean Ingredients" } },
+        "b2": { "type": "trust_item", "settings": { "text": "Dermatologist Tested" } },
+        "b3": { "type": "trust_item", "settings": { "text": "Cruelty Free" } },
+        "b4": { "type": "trust_item", "settings": { "text": "Made for Real Beauty" } }
       },
-      "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
-      ],
-      "name": "t:names.hero",
+      "block_order": ["b1", "b2", "b3", "b4"],
       "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "color_scheme": "scheme-6",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
+        "color_scheme": "scheme-5"
       }
     },
-    "product_list_fa6P9H": {
-      "type": "product-list",
+    "pnice_hero": {
+      "type": "pnice-hero",
       "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "View all",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 4,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "color": "var(--color-foreground)",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
-        }
+        "h1": { "type": "hero_badge", "settings": { "icon": "leaf", "label": "Clean Ingredients" } },
+        "h2": { "type": "hero_badge", "settings": { "icon": "check", "label": "Visible Results" } },
+        "h3": { "type": "hero_badge", "settings": { "icon": "shield", "label": "Safe for Sensitive Skin" } },
+        "h4": { "type": "hero_badge", "settings": { "icon": "recycle", "label": "Sustainable Packaging" } }
       },
-      "name": "Featured collection",
+      "block_order": ["h1", "h2", "h3", "h4"],
       "settings": {
-        "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "eyebrow": "Wellness From Within",
+        "heading": "<p>Good for your skin.<br><em>Better</em> for you.</p>",
+        "subheading": "Clean, clinically-considered skincare made with bio-identical actives and soothing botanicals — formulated to work with your skin, never against it.",
+        "primary_label": "Shop Now",
+        "primary_link": "shopify://collections/all",
+        "secondary_label": "Explore Ingredients",
+        "secondary_link": "#pnice_formula",
+        "show_stamp": true,
+        "stamp_brand": "P-nice",
+        "stamp_text": "since 2026",
+        "bg_start": "#f5f0ea",
+        "bg_end": "#f1ebe1",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "pnice_reassurance": {
+      "type": "pnice-reassurance",
+      "blocks": {
+        "r1": { "type": "feature", "settings": { "icon": "truck", "heading": "Free Shipping", "subtext": "On orders over $60" } },
+        "r2": { "type": "feature", "settings": { "icon": "return", "heading": "30-Day Returns", "subtext": "Love it or return it" } },
+        "r3": { "type": "feature", "settings": { "icon": "lock", "heading": "Secure Checkout", "subtext": "100% protected payments" } }
+      },
+      "block_order": ["r1", "r2", "r3"],
+      "settings": {
+        "color_scheme": "scheme-5"
+      }
+    },
+    "pnice_categories": {
+      "type": "pnice-categories",
+      "blocks": {
+        "c1": { "type": "category", "settings": { "title": "Skincare", "cta": "Shop Now", "coming_soon": false, "fallback_asset": "pnice-serum-open.jpg" } },
+        "c2": { "type": "category", "settings": { "title": "Haircare", "coming_soon": true, "cta": "Notify Me" } },
+        "c3": { "type": "category", "settings": { "title": "Body Care", "coming_soon": true, "cta": "Notify Me" } },
+        "c4": { "type": "category", "settings": { "title": "Makeup", "coming_soon": true, "cta": "Notify Me" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4"],
+      "settings": {
+        "eyebrow": "Find your ritual",
+        "heading": "Shop by Category",
+        "subheading": "Thoughtfully formulated collections for every step of your routine — from overnight repair to everyday glow.",
+        "viewall_label": "View All Products",
+        "viewall_link": "shopify://collections/all",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "pnice_loyalty": {
+      "type": "pnice-loyalty",
+      "blocks": {
+        "p1": { "type": "perk", "settings": { "icon": "dollar", "title": "Earn Points", "body": "Collect 5 points for every dollar spent across the shop." } },
+        "p2": { "type": "perk", "settings": { "icon": "gift", "title": "Unlock Rewards", "body": "Redeem points for exclusive discounts and seasonal gifts." } },
+        "p3": { "type": "perk", "settings": { "icon": "star", "title": "VIP Access", "body": "Be first in line for new drops and limited launches." } }
+      },
+      "block_order": ["p1", "p2", "p3"],
+      "settings": {
+        "eyebrow": "P-nice Rewards",
+        "heading": "Good choices deserve rewards.",
+        "body": "Join free and earn on every order — plus members-only gifts, early access, and birthday treats.",
+        "cta_label": "Join the Club",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "pnice_bestsellers": {
+      "type": "pnice-bestsellers",
+      "blocks": {
+        "s1": { "type": "static_card", "settings": { "title": "Retinol + Peptide Face Serum", "subtitle": "Refine your texture while you rest.", "price": "$58.00", "tag": "Best Seller", "rating": "4.9", "review_count": "842", "fallback_asset": "pnice-serum.jpg", "fallback_asset_alt": "pnice-serum-open.jpg" } },
+        "s2": { "type": "static_card", "settings": { "title": "Sleep+ Collagen Night Cream", "subtitle": "Wake up radiant, even on short rest.", "price": "$54.00", "tag": "Cult Favorite", "rating": "4.8", "review_count": "1204", "fallback_asset": "pnice-cream.jpg" } },
+        "s3": { "type": "static_card", "settings": { "title": "The Nightly Duo", "subtitle": "Serum + cream. Your full PM ritual.", "price": "$98.00", "compare_price": "$112.00", "tag": "Save $14", "gold_tag": true, "rating": "5.0", "review_count": "389", "fallback_asset": "pnice-hero-bundle.jpg" } }
+      },
+      "block_order": ["s1", "s2", "s3"],
+      "settings": {
+        "eyebrow": "Loved by 10,000+",
+        "heading": "Best Sellers",
+        "subheading": "The overnight icons our community reorders again and again.",
+        "viewall_label": "View All",
+        "viewall_link": "shopify://collections/all",
+        "max_products": 3,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "pnice_formula": {
+      "type": "pnice-formula",
+      "blocks": {
+        "i1": { "type": "ingredient", "settings": { "name": "Melatonin", "description": "Bio-identical antioxidant that fights free-radical damage during your skin's peak nocturnal repair phase." } },
+        "i2": { "type": "ingredient", "settings": { "name": "Hyaluronic Acid", "description": "Locks in up to 1000× its weight in moisture so you wake up plump and deeply hydrated." } },
+        "i3": { "type": "ingredient", "settings": { "name": "Hexapeptide-11", "description": "Supports natural structural proteins to visibly firm and refine facial contours." } },
+        "i4": { "type": "ingredient", "settings": { "name": "Bisabolol", "description": "Calms on contact — all the benefits of retinol with none of the flaking or redness." } }
+      },
+      "block_order": ["i1", "i2", "i3", "i4"],
+      "settings": {
+        "eyebrow": "Inside the formula",
+        "heading": "The science of overnight repair.",
+        "lead": "Your skin does its most important work while you sleep. We pair clinically-studied actives with calming botanicals so every ingredient earns its place — high performance, zero harshness.",
+        "fallback_asset": "pnice-infographic.jpg",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "pnice_reviews": {
+      "type": "pnice-reviews",
+      "blocks": {
+        "rv1": { "type": "review", "settings": { "quote": "I wake up looking like I slept ten hours even when I didn't. The Sleep+ cream is genuinely magic.", "name": "Maya R.", "meta": "Verified Buyer · 28 days" } },
+        "rv2": { "type": "review", "settings": { "quote": "Finally a retinol that doesn't wreck my sensitive skin. Smoother texture, zero flaking. Obsessed.", "name": "Jordan T.", "meta": "Verified Buyer · 6 weeks" } },
+        "rv3": { "type": "review", "settings": { "quote": "The whole ritual feels luxurious but it's the results that keep me reordering. Glass skin is real.", "name": "Lena K.", "meta": "Verified Buyer · 3 months" } }
+      },
+      "block_order": ["rv1", "rv2", "rv3"],
+      "settings": {
+        "eyebrow": "Real skin, real results",
+        "heading": "Loved by Real Beauty",
+        "subheading": "Over 10,000 customers report a more luminous, glass-like complexion within 14 days.",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "pnice_newsletter": {
+      "type": "pnice-newsletter",
+      "settings": {
+        "eyebrow": "Join the P-nice circle",
+        "heading": "Wellness from within, in your inbox.",
+        "subheading": "Skincare rituals, early access to launches, and 10% off your first order.",
+        "placeholder": "Enter your email",
+        "button_label": "Subscribe",
+        "success_message": "Welcome to the P-nice circle ✓",
+        "color_scheme": "scheme-1"
       }
     }
   },
   "order": [
-    "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "pnice_announcement",
+    "pnice_hero",
+    "pnice_reassurance",
+    "pnice_categories",
+    "pnice_loyalty",
+    "pnice_bestsellers",
+    "pnice_formula",
+    "pnice_reviews",
+    "pnice_newsletter"
   ]
 }

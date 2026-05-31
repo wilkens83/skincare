@@ -1,0 +1,135 @@
+{%- comment -%} P-nice newsletter / email signup section {%- endcomment -%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<section class="pnice-news color-{{ section.settings.color_scheme }}">
+  <div class="pnice-wrap pnice-news__wrap">
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="pnice-eyebrow">{{ section.settings.eyebrow }}</span>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pnice-news__title">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="pnice-news__sub">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+    {%- form 'customer', class: 'pnice-news__form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input
+        type="email"
+        name="contact[email]"
+        placeholder="{{ section.settings.placeholder | default: 'Enter your email' }}"
+        required
+        aria-label="Email"
+        class="pnice-news__input"
+      >
+      <button type="submit" class="pnice-btn pnice-btn--primary">
+        {{ section.settings.button_label | default: 'Subscribe' }}
+      </button>
+      {%- if form.posted_successfully? -%}
+        <p class="pnice-news__success">{{ section.settings.success_message | default: 'Welcome to the P-nice circle ✓' }}</p>
+      {%- endif -%}
+      {%- if form.errors -%}
+        <p class="pnice-news__error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .pnice-news {
+    background: var(--pnice-cream, #f5f0ea);
+  }
+  .pnice-news__wrap {
+    text-align: center;
+    padding-block: 90px;
+    font-family: var(--font-body--family);
+  }
+  .pnice-news__title {
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: clamp(32px, 3.6vw, 50px);
+    color: var(--color-foreground-heading);
+    margin: 16px 0 14px;
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+  .pnice-news__sub {
+    color: var(--color-foreground);
+    opacity: 0.72;
+    max-width: 420px;
+    margin: 0 auto 32px;
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+  .pnice-news__form {
+    display: flex;
+    gap: 10px;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+  .pnice-news__input {
+    flex: 1;
+    border: 1px solid var(--pnice-line, #e3dccf);
+    background: #fff;
+    padding: 16px 20px;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    border-radius: 2px;
+    color: var(--color-foreground);
+  }
+  .pnice-news__input:focus {
+    outline: none;
+    border-color: var(--pnice-sage, #4a6741);
+  }
+  .pnice-news__form .pnice-btn--primary {
+    padding: 16px 30px;
+  }
+  .pnice-news__success {
+    flex-basis: 100%;
+    color: var(--pnice-sage, #4a6741);
+    margin-top: 16px;
+    font-size: 14px;
+  }
+  .pnice-news__error {
+    flex-basis: 100%;
+    color: #b34d4d;
+    margin-top: 16px;
+    font-size: 13px;
+  }
+  @media (max-width: 520px) {
+    .pnice-news__form {
+      flex-direction: column;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "P-nice Newsletter",
+  "tag": "section",
+  "class": "section-wrapper pnice-news-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Join the P-nice circle" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Wellness from within, in your inbox." },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Skincare rituals, early access to launches, and 10% off your first order." },
+    { "type": "text", "id": "placeholder", "label": "Input placeholder", "default": "Enter your email" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Subscribe" },
+    { "type": "text", "id": "success_message", "label": "Success message", "default": "Welcome to the P-nice circle ✓" },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "P-nice Newsletter",
+      "category": "P-nice"
+    }
+  ]
+}
+{% endschema %}

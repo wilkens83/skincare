@@ -1,0 +1,100 @@
+{%- comment -%} P-nice trust strip announcement {%- endcomment -%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div class="pnice-announce color-{{ section.settings.color_scheme }}">
+  <div class="pnice-announce__wrap pnice-wrap">
+    {%- for block in section.blocks -%}
+      <span class="pnice-announce__item" {{ block.shopify_attributes }}>
+        <span class="pnice-announce__dot" aria-hidden="true"></span>
+        {{ block.settings.text }}
+      </span>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .pnice-announce {
+    font-family: var(--font-body--family);
+    font-size: 11.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .pnice-announce__wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 34px;
+    min-height: 38px;
+    overflow: hidden;
+    padding-block: 10px;
+    flex-wrap: wrap;
+  }
+  .pnice-announce__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+  }
+  .pnice-announce__dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--pnice-gold-soft, #c8a460);
+    display: inline-block;
+  }
+  @media (max-width: 760px) {
+    .pnice-announce__item:nth-child(n + 3) {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "P-nice Announcement",
+  "tag": "section",
+  "class": "section-wrapper pnice-announce-wrapper",
+  "disabled_on": {
+    "groups": ["footer"]
+  },
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Clean Ingredients"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-5"
+    }
+  ],
+  "presets": [
+    {
+      "name": "P-nice Announcement",
+      "category": "P-nice",
+      "settings": {
+        "color_scheme": "scheme-5"
+      },
+      "blocks": [
+        { "type": "trust_item", "settings": { "text": "Clean Ingredients" } },
+        { "type": "trust_item", "settings": { "text": "Dermatologist Tested" } },
+        { "type": "trust_item", "settings": { "text": "Cruelty Free" } },
+        { "type": "trust_item", "settings": { "text": "Made for Real Beauty" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
