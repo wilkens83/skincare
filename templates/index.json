@@ -90,7 +90,7 @@
         "heading": "<p>Good for your skin.<br><em>Better</em> for you.</p>",
         "subheading": "Clean, clinically-considered skincare made with bio-identical actives and soothing botanicals — formulated to work with your skin, never against it.",
         "primary_label": "Shop Now",
-        "primary_link": "shopify://collections/all",
+        "primary_link": "/collections/night-skincare",
         "secondary_label": "Explore Ingredients",
         "secondary_link": "#pnice_formula",
         "show_stamp": true,
@@ -145,8 +145,9 @@
           "type": "category",
           "settings": {
             "fallback_asset": "pnice-serum-open.jpg",
+            "alt_text": "P-NICE night skincare collection — collagen cream and retinol serum",
             "title": "Skincare",
-            "link": "",
+            "link": "/collections/night-skincare",
             "cta": "Shop Now",
             "coming_soon": false
           }
@@ -156,6 +157,7 @@
           "settings": {
             "image": "shopify://shop_images/20260531054944-1773939148594-generated-label-image-2.jpg",
             "fallback_asset": "",
+            "alt_text": "P-NICE Haircare collection",
             "title": "Haircare",
             "link": "",
             "cta": "Notify Me",
@@ -166,6 +168,7 @@
           "type": "category",
           "settings": {
             "fallback_asset": "",
+            "alt_text": "P-NICE Makeup collection — coming soon",
             "title": "Makeup",
             "link": "",
             "cta": "Notify Me",
@@ -183,7 +186,7 @@
         "heading": "Shop by Category",
         "subheading": "Thoughtfully formulated collections for every step of your routine — from overnight repair to everyday glow.",
         "viewall_label": "View All Products",
-        "viewall_link": "shopify://collections/all",
+        "viewall_link": "/collections/all",
         "color_scheme": "scheme-1"
       }
     },
@@ -237,15 +240,16 @@
           "settings": {
             "fallback_asset": "pnice-serum.jpg",
             "fallback_asset_alt": "pnice-serum-open.jpg",
-            "title": "Retinol + Peptide Face Serum",
-            "subtitle": "Refine your texture while you rest.",
+            "alt_text": "P-NICE Retinol and Peptide Face Serum smoothing lightweight night serum",
+            "title": "Retinol and Peptide Face Serum",
+            "subtitle": "A lightweight night serum with retinol, Hexapeptide-11, bisabolol, and phospholipids — for smoother-looking texture by morning.",
             "price": "$58.00",
             "compare_price": "",
             "tag": "Best Seller",
             "gold_tag": false,
             "rating": "4.9",
             "review_count": "842",
-            "link": ""
+            "link": "/products/retinol-peptide-face-serum"
           }
         },
         "s2": {
@@ -253,15 +257,16 @@
           "settings": {
             "fallback_asset": "pnice-cream.jpg",
             "fallback_asset_alt": "",
-            "title": "Sleep+ Collagen Night Cream",
-            "subtitle": "Wake up radiant, even on short rest.",
+            "alt_text": "Sleep Plus Collagen Cream overnight hydrating night cream by P-NICE",
+            "title": "Sleep Plus Collagen Cream",
+            "subtitle": "Hydrate and nourish overnight with collagen, hyaluronic acid, aloe vera, avocado oil, lavender oil, and melatonin.",
             "price": "$54.00",
             "compare_price": "",
             "tag": "Cult Favorite",
             "gold_tag": false,
             "rating": "4.8",
             "review_count": "1204",
-            "link": ""
+            "link": "/products/sleep-plus-collagen-cream"
           }
         },
         "s3": {
@@ -269,15 +274,16 @@
           "settings": {
             "fallback_asset": "pnice-hero-bundle.jpg",
             "fallback_asset_alt": "",
+            "alt_text": "P-NICE Nightly Duo: Sleep Plus Collagen Cream and Retinol and Peptide Face Serum bundle",
             "title": "The Nightly Duo",
-            "subtitle": "Serum + cream. Your full PM ritual.",
+            "subtitle": "Sleep Plus Collagen Cream + Retinol and Peptide Face Serum. Your full PM ritual.",
             "price": "$98.00",
             "compare_price": "$112.00",
             "tag": "Save $14",
             "gold_tag": true,
             "rating": "5.0",
             "review_count": "389",
-            "link": ""
+            "link": "/collections/night-skincare"
           }
         }
       },

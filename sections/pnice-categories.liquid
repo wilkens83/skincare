@@ -52,7 +52,7 @@
             {%- elsif block.settings.fallback_asset != blank -%}
               <img
                 src="{{ block.settings.fallback_asset | asset_url }}"
-                alt="{{ block.settings.title }}"
+                alt="{{ block.settings.alt_text | default: block.settings.title }}"
                 loading="lazy"
                 width="800"
                 height="1067"
@@ -256,6 +256,7 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Image" },
         { "type": "text", "id": "fallback_asset", "label": "Fallback asset filename (e.g. pnice-serum-open.jpg)" },
+        { "type": "text", "id": "alt_text", "label": "Image alt text (SEO)" },
         { "type": "text", "id": "title", "label": "Title", "default": "Skincare" },
         { "type": "url", "id": "link", "label": "Link" },
         { "type": "text", "id": "cta", "label": "CTA", "default": "Shop Now" },

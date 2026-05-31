@@ -1,0 +1,65 @@
+{%- comment -%}
+  P-nice SEO metadata helpers.
+
+  - Homepage fallback meta description + title when merchant hasn't set them in
+    Online Store > Preferences.
+  - Organization + WebSite + ItemList JSON-LD for the homepage so search engines
+    pick up brand info and the featured products.
+
+  Source: shopify_seo_metadata_pnice.md (handoff bundle).
+{%- endcomment -%}
+
+{%- assign brand_name = 'P-NICE' -%}
+{%- assign brand_tagline = 'Collagen Skincare & Beauty Wellness Essentials' -%}
+{%- assign brand_description = 'Discover P-NICE skincare and wellness essentials designed to support natural beauty, hydration, smoother-looking skin, and simple daily self-care rituals.' -%}
+
+{%- if request.page_type == 'index' -%}
+  {%- comment -%} Title fallback when admin hasn't set a homepage title {%- endcomment -%}
+  {%- unless page_title contains brand_name or page_title contains shop.name -%}
+    <meta name="pnice:title-fallback" content="{{ brand_name }} | {{ brand_tagline }}">
+  {%- endunless -%}
+
+  {%- comment -%} Description fallback {%- endcomment -%}
+  {%- if page_description == blank -%}
+    <meta name="description" content="{{ brand_description | escape }}">
+  {%- endif -%}
+
+  {%- comment -%} Keywords (low SEO weight but cheap to include) {%- endcomment -%}
+  <meta name="keywords" content="collagen skincare, beauty wellness, P-NICE skincare, retinol serum, collagen cream, clean beauty products, skincare routine">
+
+  {%- comment -%} Organization schema {%- endcomment -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "{{ shop.name | default: brand_name }}",
+      "url": "{{ shop.url | default: request.origin }}",
+      {%- if settings.logo != blank -%}
+        "logo": "{{ settings.logo | image_url: width: 600 | prepend: 'https:' }}",
+      {%- else -%}
+        "logo": "{{ 'pnice-logo.jpg' | asset_url | prepend: 'https:' }}",
+      {%- endif -%}
+      "description": "{{ brand_description | escape }}",
+      "sameAs": [
+        {%- if settings.social_instagram_link != blank -%}"{{ settings.social_instagram_link }}"{%- endif -%}
+        {%- if settings.social_tiktok_link != blank -%}{%- if settings.social_instagram_link != blank -%},{%- endif -%}"{{ settings.social_tiktok_link }}"{%- endif -%}
+        {%- if settings.social_pinterest_link != blank -%}{%- if settings.social_instagram_link != blank or settings.social_tiktok_link != blank -%},{%- endif -%}"{{ settings.social_pinterest_link }}"{%- endif -%}
+      ]
+    }
+  </script>
+
+  {%- comment -%} WebSite schema with SearchAction {%- endcomment -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "{{ shop.name | default: brand_name }}",
+      "url": "{{ shop.url | default: request.origin }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ shop.url | default: request.origin }}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+{%- endif -%}

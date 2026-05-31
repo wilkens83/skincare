@@ -31,7 +31,7 @@
           alt: section.settings.image.alt | default: section.settings.heading
         }}
       {%- elsif section.settings.fallback_asset != blank -%}
-        <img src="{{ section.settings.fallback_asset | asset_url }}" alt="{{ section.settings.heading }}" loading="lazy" width="900" height="900">
+        <img src="{{ section.settings.fallback_asset | asset_url }}" alt="Collagen, hyaluronic acid, aloe vera, avocado oil, lavender oil, and melatonin skincare ingredients" loading="lazy" width="900" height="900">
       {%- else -%}
         {{ 'lifestyle-1' | placeholder_svg_tag: 'pnice-formula__art-placeholder' }}
       {%- endif -%}
