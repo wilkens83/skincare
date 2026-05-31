@@ -1,14 +1,48 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "pnice_announcement": {
       "type": "pnice-announcement",
       "blocks": {
-        "b1": { "type": "trust_item", "settings": { "text": "Clean Ingredients" } },
-        "b2": { "type": "trust_item", "settings": { "text": "Dermatologist Tested" } },
-        "b3": { "type": "trust_item", "settings": { "text": "Cruelty Free" } },
-        "b4": { "type": "trust_item", "settings": { "text": "Made for Real Beauty" } }
+        "b1": {
+          "type": "trust_item",
+          "settings": {
+            "text": "Clean Ingredients"
+          }
+        },
+        "b2": {
+          "type": "trust_item",
+          "settings": {
+            "text": "Dermatologist Tested"
+          }
+        },
+        "b3": {
+          "type": "trust_item",
+          "settings": {
+            "text": "Cruelty Free"
+          }
+        },
+        "b4": {
+          "type": "trust_item",
+          "settings": {
+            "text": "Made for Real Beauty"
+          }
+        }
       },
-      "block_order": ["b1", "b2", "b3", "b4"],
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
       "settings": {
         "color_scheme": "scheme-5"
       }
@@ -16,12 +50,41 @@
     "pnice_hero": {
       "type": "pnice-hero",
       "blocks": {
-        "h1": { "type": "hero_badge", "settings": { "icon": "leaf", "label": "Clean Ingredients" } },
-        "h2": { "type": "hero_badge", "settings": { "icon": "check", "label": "Visible Results" } },
-        "h3": { "type": "hero_badge", "settings": { "icon": "shield", "label": "Safe for Sensitive Skin" } },
-        "h4": { "type": "hero_badge", "settings": { "icon": "recycle", "label": "Sustainable Packaging" } }
+        "h1": {
+          "type": "hero_badge",
+          "settings": {
+            "icon": "leaf",
+            "label": "Clean Ingredients"
+          }
+        },
+        "h2": {
+          "type": "hero_badge",
+          "settings": {
+            "icon": "check",
+            "label": "Visible Results"
+          }
+        },
+        "h3": {
+          "type": "hero_badge",
+          "settings": {
+            "icon": "shield",
+            "label": "Safe for Sensitive Skin"
+          }
+        },
+        "h4": {
+          "type": "hero_badge",
+          "settings": {
+            "icon": "recycle",
+            "label": "Sustainable Packaging"
+          }
+        }
       },
-      "block_order": ["h1", "h2", "h3", "h4"],
+      "block_order": [
+        "h1",
+        "h2",
+        "h3",
+        "h4"
+      ],
       "settings": {
         "eyebrow": "Wellness From Within",
         "heading": "<p>Good for your skin.<br><em>Better</em> for you.</p>",
@@ -41,11 +104,36 @@
     "pnice_reassurance": {
       "type": "pnice-reassurance",
       "blocks": {
-        "r1": { "type": "feature", "settings": { "icon": "truck", "heading": "Free Shipping", "subtext": "On orders over $60" } },
-        "r2": { "type": "feature", "settings": { "icon": "return", "heading": "30-Day Returns", "subtext": "Love it or return it" } },
-        "r3": { "type": "feature", "settings": { "icon": "lock", "heading": "Secure Checkout", "subtext": "100% protected payments" } }
+        "r1": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "heading": "Free Shipping",
+            "subtext": "On orders over $60"
+          }
+        },
+        "r2": {
+          "type": "feature",
+          "settings": {
+            "icon": "return",
+            "heading": "30-Day Returns",
+            "subtext": "Love it or return it"
+          }
+        },
+        "r3": {
+          "type": "feature",
+          "settings": {
+            "icon": "lock",
+            "heading": "Secure Checkout",
+            "subtext": "100% protected payments"
+          }
+        }
       },
-      "block_order": ["r1", "r2", "r3"],
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
       "settings": {
         "color_scheme": "scheme-5"
       }
@@ -53,12 +141,53 @@
     "pnice_categories": {
       "type": "pnice-categories",
       "blocks": {
-        "c1": { "type": "category", "settings": { "title": "Skincare", "cta": "Shop Now", "coming_soon": false, "fallback_asset": "pnice-serum-open.jpg" } },
-        "c2": { "type": "category", "settings": { "title": "Haircare", "coming_soon": true, "cta": "Notify Me" } },
-        "c3": { "type": "category", "settings": { "title": "Body Care", "coming_soon": true, "cta": "Notify Me" } },
-        "c4": { "type": "category", "settings": { "title": "Makeup", "coming_soon": true, "cta": "Notify Me" } }
+        "c1": {
+          "type": "category",
+          "settings": {
+            "fallback_asset": "pnice-serum-open.jpg",
+            "title": "Skincare",
+            "link": "",
+            "cta": "Shop Now",
+            "coming_soon": false
+          }
+        },
+        "c2": {
+          "type": "category",
+          "settings": {
+            "fallback_asset": "",
+            "title": "Haircare",
+            "link": "",
+            "cta": "Notify Me",
+            "coming_soon": true
+          }
+        },
+        "c3": {
+          "type": "category",
+          "settings": {
+            "fallback_asset": "",
+            "title": "Body Care",
+            "link": "",
+            "cta": "Notify Me",
+            "coming_soon": true
+          }
+        },
+        "c4": {
+          "type": "category",
+          "settings": {
+            "fallback_asset": "",
+            "title": "Makeup",
+            "link": "",
+            "cta": "Notify Me",
+            "coming_soon": true
+          }
+        }
       },
-      "block_order": ["c1", "c2", "c3", "c4"],
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
       "settings": {
         "eyebrow": "Find your ritual",
         "heading": "Shop by Category",
@@ -71,33 +200,109 @@
     "pnice_loyalty": {
       "type": "pnice-loyalty",
       "blocks": {
-        "p1": { "type": "perk", "settings": { "icon": "dollar", "title": "Earn Points", "body": "Collect 5 points for every dollar spent across the shop." } },
-        "p2": { "type": "perk", "settings": { "icon": "gift", "title": "Unlock Rewards", "body": "Redeem points for exclusive discounts and seasonal gifts." } },
-        "p3": { "type": "perk", "settings": { "icon": "star", "title": "VIP Access", "body": "Be first in line for new drops and limited launches." } }
+        "p1": {
+          "type": "perk",
+          "settings": {
+            "icon": "dollar",
+            "title": "Earn Points",
+            "body": "Collect 5 points for every dollar spent across the shop."
+          }
+        },
+        "p2": {
+          "type": "perk",
+          "settings": {
+            "icon": "gift",
+            "title": "Unlock Rewards",
+            "body": "Redeem points for exclusive discounts and seasonal gifts."
+          }
+        },
+        "p3": {
+          "type": "perk",
+          "settings": {
+            "icon": "star",
+            "title": "VIP Access",
+            "body": "Be first in line for new drops and limited launches."
+          }
+        }
       },
-      "block_order": ["p1", "p2", "p3"],
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
       "settings": {
         "eyebrow": "P-nice Rewards",
         "heading": "Good choices deserve rewards.",
         "body": "Join free and earn on every order — plus members-only gifts, early access, and birthday treats.",
         "cta_label": "Join the Club",
+        "cta_link": "",
         "color_scheme": "scheme-1"
       }
     },
     "pnice_bestsellers": {
       "type": "pnice-bestsellers",
       "blocks": {
-        "s1": { "type": "static_card", "settings": { "title": "Retinol + Peptide Face Serum", "subtitle": "Refine your texture while you rest.", "price": "$58.00", "tag": "Best Seller", "rating": "4.9", "review_count": "842", "fallback_asset": "pnice-serum.jpg", "fallback_asset_alt": "pnice-serum-open.jpg" } },
-        "s2": { "type": "static_card", "settings": { "title": "Sleep+ Collagen Night Cream", "subtitle": "Wake up radiant, even on short rest.", "price": "$54.00", "tag": "Cult Favorite", "rating": "4.8", "review_count": "1204", "fallback_asset": "pnice-cream.jpg" } },
-        "s3": { "type": "static_card", "settings": { "title": "The Nightly Duo", "subtitle": "Serum + cream. Your full PM ritual.", "price": "$98.00", "compare_price": "$112.00", "tag": "Save $14", "gold_tag": true, "rating": "5.0", "review_count": "389", "fallback_asset": "pnice-hero-bundle.jpg" } }
+        "s1": {
+          "type": "static_card",
+          "settings": {
+            "fallback_asset": "pnice-serum.jpg",
+            "fallback_asset_alt": "pnice-serum-open.jpg",
+            "title": "Retinol + Peptide Face Serum",
+            "subtitle": "Refine your texture while you rest.",
+            "price": "$58.00",
+            "compare_price": "",
+            "tag": "Best Seller",
+            "gold_tag": false,
+            "rating": "4.9",
+            "review_count": "842",
+            "link": ""
+          }
+        },
+        "s2": {
+          "type": "static_card",
+          "settings": {
+            "fallback_asset": "pnice-cream.jpg",
+            "fallback_asset_alt": "",
+            "title": "Sleep+ Collagen Night Cream",
+            "subtitle": "Wake up radiant, even on short rest.",
+            "price": "$54.00",
+            "compare_price": "",
+            "tag": "Cult Favorite",
+            "gold_tag": false,
+            "rating": "4.8",
+            "review_count": "1204",
+            "link": ""
+          }
+        },
+        "s3": {
+          "type": "static_card",
+          "settings": {
+            "fallback_asset": "pnice-hero-bundle.jpg",
+            "fallback_asset_alt": "",
+            "title": "The Nightly Duo",
+            "subtitle": "Serum + cream. Your full PM ritual.",
+            "price": "$98.00",
+            "compare_price": "$112.00",
+            "tag": "Save $14",
+            "gold_tag": true,
+            "rating": "5.0",
+            "review_count": "389",
+            "link": ""
+          }
+        }
       },
-      "block_order": ["s1", "s2", "s3"],
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
       "settings": {
         "eyebrow": "Loved by 10,000+",
         "heading": "Best Sellers",
         "subheading": "The overnight icons our community reorders again and again.",
         "viewall_label": "View All",
         "viewall_link": "shopify://collections/all",
+        "collection": "",
         "max_products": 3,
         "color_scheme": "scheme-1"
       }
@@ -105,12 +310,41 @@
     "pnice_formula": {
       "type": "pnice-formula",
       "blocks": {
-        "i1": { "type": "ingredient", "settings": { "name": "Melatonin", "description": "Bio-identical antioxidant that fights free-radical damage during your skin's peak nocturnal repair phase." } },
-        "i2": { "type": "ingredient", "settings": { "name": "Hyaluronic Acid", "description": "Locks in up to 1000× its weight in moisture so you wake up plump and deeply hydrated." } },
-        "i3": { "type": "ingredient", "settings": { "name": "Hexapeptide-11", "description": "Supports natural structural proteins to visibly firm and refine facial contours." } },
-        "i4": { "type": "ingredient", "settings": { "name": "Bisabolol", "description": "Calms on contact — all the benefits of retinol with none of the flaking or redness." } }
+        "i1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Melatonin",
+            "description": "Bio-identical antioxidant that fights free-radical damage during your skin's peak nocturnal repair phase."
+          }
+        },
+        "i2": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Hyaluronic Acid",
+            "description": "Locks in up to 1000× its weight in moisture so you wake up plump and deeply hydrated."
+          }
+        },
+        "i3": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Hexapeptide-11",
+            "description": "Supports natural structural proteins to visibly firm and refine facial contours."
+          }
+        },
+        "i4": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Bisabolol",
+            "description": "Calms on contact — all the benefits of retinol with none of the flaking or redness."
+          }
+        }
       },
-      "block_order": ["i1", "i2", "i3", "i4"],
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ],
       "settings": {
         "eyebrow": "Inside the formula",
         "heading": "The science of overnight repair.",
@@ -122,11 +356,36 @@
     "pnice_reviews": {
       "type": "pnice-reviews",
       "blocks": {
-        "rv1": { "type": "review", "settings": { "quote": "I wake up looking like I slept ten hours even when I didn't. The Sleep+ cream is genuinely magic.", "name": "Maya R.", "meta": "Verified Buyer · 28 days" } },
-        "rv2": { "type": "review", "settings": { "quote": "Finally a retinol that doesn't wreck my sensitive skin. Smoother texture, zero flaking. Obsessed.", "name": "Jordan T.", "meta": "Verified Buyer · 6 weeks" } },
-        "rv3": { "type": "review", "settings": { "quote": "The whole ritual feels luxurious but it's the results that keep me reordering. Glass skin is real.", "name": "Lena K.", "meta": "Verified Buyer · 3 months" } }
+        "rv1": {
+          "type": "review",
+          "settings": {
+            "quote": "I wake up looking like I slept ten hours even when I didn't. The Sleep+ cream is genuinely magic.",
+            "name": "Maya R.",
+            "meta": "Verified Buyer · 28 days"
+          }
+        },
+        "rv2": {
+          "type": "review",
+          "settings": {
+            "quote": "Finally a retinol that doesn't wreck my sensitive skin. Smoother texture, zero flaking. Obsessed.",
+            "name": "Jordan T.",
+            "meta": "Verified Buyer · 6 weeks"
+          }
+        },
+        "rv3": {
+          "type": "review",
+          "settings": {
+            "quote": "The whole ritual feels luxurious but it's the results that keep me reordering. Glass skin is real.",
+            "name": "Lena K.",
+            "meta": "Verified Buyer · 3 months"
+          }
+        }
       },
-      "block_order": ["rv1", "rv2", "rv3"],
+      "block_order": [
+        "rv1",
+        "rv2",
+        "rv3"
+      ],
       "settings": {
         "eyebrow": "Real skin, real results",
         "heading": "Loved by Real Beauty",
