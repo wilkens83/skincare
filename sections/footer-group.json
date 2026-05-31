@@ -151,6 +151,15 @@
     "footer_utilities_jLGE8U": {
       "type": "footer-utilities",
       "blocks": {
+        "footer_policy_list_cfxPft": {
+          "type": "footer-policy-list",
+          "name": "t:names.policy_list",
+          "settings": {
+            "font_size": "0.75rem",
+            "case": "none"
+          },
+          "blocks": {}
+        },
         "footer_policy_list_VCdnpa": {
           "type": "footer-policy-list",
           "settings": {
@@ -180,6 +189,7 @@
         }
       },
       "block_order": [
+        "footer_policy_list_cfxPft",
         "footer_policy_list_VCdnpa",
         "social_links_Ew63Kq"
       ],
