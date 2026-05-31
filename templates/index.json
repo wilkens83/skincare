@@ -154,21 +154,12 @@
         "c2": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/20260531054944-1773939148594-generated-label-image-2.jpg",
             "fallback_asset": "",
             "title": "Haircare",
             "link": "",
             "cta": "Notify Me",
-            "coming_soon": true
-          }
-        },
-        "c3": {
-          "type": "category",
-          "settings": {
-            "fallback_asset": "",
-            "title": "Body Care",
-            "link": "",
-            "cta": "Notify Me",
-            "coming_soon": true
+            "coming_soon": false
           }
         },
         "c4": {
@@ -185,7 +176,6 @@
       "block_order": [
         "c1",
         "c2",
-        "c3",
         "c4"
       ],
       "settings": {
