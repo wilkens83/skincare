@@ -1,0 +1,1200 @@
+{%- comment -%}
+  P-nice High-Conversion Product Page
+  ----------------------------------------------------------------
+  Self-contained product section implementing the 9-feature anatomy:
+    1) Hero Image Gallery (thumbnails, hover-zoom, swipe)
+    2) Title + Pricing block (h1, sale badge, strikethrough compare)
+    3) Trust Badges row
+    4) Variant Selector (color swatches, size pills)
+    5) Sticky Add-to-Cart (mobile + desktop)
+    6) Benefit-First Description (hook + Read More)
+    7) Star Ratings (Judge.me / Shopify Reviews / fallback)
+    8) Customer Reviews section
+    9) Cross-Sell "You May Also Like"
+
+  Drop this section into templates/product.json or
+  templates/product.pnice.json to enable. Designed to be
+  non-destructive — every feature is wrapped in BEGIN/END markers.
+
+  CONFIG: see the schema settings + the FLAGS list at the bottom
+  of this file for app embed codes, metafield namespaces, and
+  brand color overrides you may need to fill in.
+{%- endcomment -%}
+
+<section
+  class="pnice-pdp color-{{ section.settings.color_scheme }}"
+  data-product-id="{{ product.id }}"
+  data-section-id="{{ section.id }}"
+>
+  <div class="section-background color-{{ section.settings.color_scheme }}"></div>
+  <div class="pnice-wrap pnice-pdp__grid">
+
+    <!-- BEGIN: Hero Image Gallery -->
+    <div class="pnice-pdp__gallery" data-pnice-gallery>
+      {%- if product.media.size > 0 -%}
+        <div class="pnice-pdp__stage" data-pnice-stage>
+          {%- for media in product.media -%}
+            <div
+              class="pnice-pdp__slide{% if forloop.first %} is-active{% endif %}"
+              data-pnice-slide
+              data-index="{{ forloop.index0 }}"
+            >
+              {%- case media.media_type -%}
+                {%- when 'image' -%}
+                  <img
+                    class="pnice-pdp__main-img"
+                    src="{{ media | image_url: width: 1200 }}"
+                    srcset="
+                      {{ media | image_url: width: 600 }} 600w,
+                      {{ media | image_url: width: 900 }} 900w,
+                      {{ media | image_url: width: 1200 }} 1200w,
+                      {{ media | image_url: width: 1800 }} 1800w
+                    "
+                    sizes="(min-width: 880px) 50vw, 100vw"
+                    alt="{{ media.alt | escape | default: product.title }}"
+                    loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                    width="{{ media.width }}"
+                    height="{{ media.height }}"
+                    data-pnice-zoom
+                  >
+                {%- when 'video' or 'external_video' -%}
+                  <video
+                    class="pnice-pdp__main-img"
+                    src="{{ media.sources[1].url | default: media.sources[0].url }}"
+                    controls
+                    playsinline
+                    preload="metadata"
+                    poster="{{ media.preview_image | image_url: width: 1200 }}"
+                  ></video>
+                {%- when 'model' -%}
+                  {{ media | media_tag: class: 'pnice-pdp__main-img', image_size: '1200x' }}
+                {%- else -%}
+                  <img class="pnice-pdp__main-img" src="{{ media.preview_image | image_url: width: 1200 }}" alt="{{ product.title }}">
+              {%- endcase -%}
+            </div>
+          {%- endfor -%}
+
+          {%- if product.media.size > 1 -%}
+            <button class="pnice-pdp__nav pnice-pdp__nav--prev" type="button" aria-label="Previous image" data-pnice-prev>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="pnice-pdp__nav pnice-pdp__nav--next" type="button" aria-label="Next image" data-pnice-next>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          {%- endif -%}
+        </div>
+
+        {%- if product.media.size > 1 -%}
+          <div class="pnice-pdp__thumbs" data-pnice-thumbs>
+            {%- for media in product.media -%}
+              <button
+                type="button"
+                class="pnice-pdp__thumb{% if forloop.first %} is-active{% endif %}"
+                data-pnice-thumb="{{ forloop.index0 }}"
+                aria-label="View image {{ forloop.index }} of {{ product.media.size }}"
+              >
+                <img
+                  src="{{ media.preview_image | image_url: width: 200 }}"
+                  alt=""
+                  loading="lazy"
+                  width="100"
+                  height="100"
+                >
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'pnice-pdp__main-img placeholder-svg' }}
+      {%- endif -%}
+    </div>
+    <!-- END: Hero Image Gallery -->
+
+    <div class="pnice-pdp__info">
+      {%- if product.vendor != blank and section.settings.show_vendor -%}
+        <p class="pnice-pdp__vendor">{{ product.vendor }}</p>
+      {%- endif -%}
+
+      <!-- BEGIN: Star Ratings (top placement) -->
+      <div class="pnice-pdp__rating-top">
+        {%- liquid
+          assign rating_value = product.metafields.reviews.rating.value | default: product.metafields[section.settings.reviews_namespace].rating | default: ''
+          assign rating_count = product.metafields.reviews.rating_count | default: product.metafields[section.settings.reviews_namespace].rating_count | default: ''
+        -%}
+        {%- if section.settings.reviews_provider == 'judgeme' -%}
+          {%- comment -%} Judge.me drops in its own widget here {%- endcomment -%}
+          <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}"></div>
+        {%- elsif section.settings.reviews_provider == 'shopify' and rating_value != blank -%}
+          <div class="pnice-pdp__stars" aria-label="Rated {{ rating_value }} out of 5">
+            {%- assign stars_rounded = rating_value | times: 1 | round -%}
+            {%- for i in (1..5) -%}
+              <svg class="pnice-pdp__star{% if forloop.index <= stars_rounded %} is-on{% endif %}" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.6 1.4 6.8L12 17.8 5.9 21.3l1.4-6.8L2.2 9.9l6.9-.8z"/></svg>
+            {%- endfor -%}
+            <span class="pnice-pdp__rating-meta">{{ rating_value }} {% if rating_count != blank %}({{ rating_count }} reviews){% endif %}</span>
+          </div>
+        {%- else -%}
+          <div class="pnice-pdp__stars pnice-pdp__stars--placeholder" aria-label="No reviews yet">
+            {%- for i in (1..5) -%}
+              <svg class="pnice-pdp__star" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.6 1.4 6.8L12 17.8 5.9 21.3l1.4-6.8L2.2 9.9l6.9-.8z"/></svg>
+            {%- endfor -%}
+            <span class="pnice-pdp__rating-meta">Be the first to review</span>
+          </div>
+        {%- endif -%}
+      </div>
+      <!-- END: Star Ratings (top placement) -->
+
+      <!-- BEGIN: Title + Pricing -->
+      <h1 class="pnice-pdp__title">{{ product.title }}</h1>
+
+      <div class="pnice-pdp__pricing" data-pnice-pricing>
+        <span class="pnice-pdp__price" data-pnice-price>
+          {{ product.selected_or_first_available_variant.price | money }}
+        </span>
+        {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+          <s class="pnice-pdp__compare" data-pnice-compare>
+            {{ product.selected_or_first_available_variant.compare_at_price | money }}
+          </s>
+          <span class="pnice-pdp__sale-badge" data-pnice-sale-badge>SALE</span>
+        {%- else -%}
+          <s class="pnice-pdp__compare" data-pnice-compare hidden></s>
+          <span class="pnice-pdp__sale-badge" data-pnice-sale-badge hidden>SALE</span>
+        {%- endif -%}
+      </div>
+      <!-- END: Title + Pricing -->
+
+      <!-- BEGIN: Trust Badges -->
+      <ul class="pnice-pdp__trust" role="list">
+        <li class="pnice-pdp__trust-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h13v8H3zM16 10h3l2 3v2h-5z" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="7" cy="17" r="2" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="17" r="2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+          <span>Free Shipping</span>
+        </li>
+        <li class="pnice-pdp__trust-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+          <span>Secure Payment</span>
+        </li>
+        <li class="pnice-pdp__trust-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="m9 12 2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <span>Satisfaction Guarantee</span>
+        </li>
+        <li class="pnice-pdp__trust-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0Z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3 12h4l2-5 3 10 2-5h7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Easy Returns</span>
+        </li>
+      </ul>
+      <!-- END: Trust Badges -->
+
+      <!-- BEGIN: Variant Selector -->
+      <form
+        method="post"
+        action="{{ routes.cart_add_url }}"
+        id="pnice-pdp-form-{{ section.id }}"
+        class="pnice-pdp__form"
+        data-pnice-form
+        novalidate
+      >
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-pnice-variant-input>
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            {%- assign option_name_dc = option.name | downcase -%}
+            <fieldset class="pnice-pdp__option" data-pnice-option-position="{{ option.position }}">
+              <legend class="pnice-pdp__option-label">
+                <span>{{ option.name }}:</span>
+                <strong data-pnice-option-display="{{ option.position }}">{{ option.selected_value }}</strong>
+              </legend>
+              <div class="pnice-pdp__option-values {% if option_name_dc contains 'color' or option_name_dc contains 'colour' %}pnice-pdp__option-values--swatch{% else %}pnice-pdp__option-values--pill{% endif %}">
+                {%- for value in option.values -%}
+                  {%- assign input_id = section.id | append: '-' | append: option.position | append: '-' | append: forloop.index -%}
+                  <input
+                    type="radio"
+                    id="{{ input_id }}"
+                    name="options[{{ option.name | escape }}]"
+                    value="{{ value | escape }}"
+                    data-pnice-option-input
+                    data-pnice-option-position="{{ option.position }}"
+                    {% if option.selected_value == value %}checked{% endif %}
+                  >
+                  <label
+                    for="{{ input_id }}"
+                    class="pnice-pdp__option-value"
+                    {% if option_name_dc contains 'color' or option_name_dc contains 'colour' %}
+                      style="--swatch-color: {{ value | handleize | prepend: '#' | default: value | downcase }};"
+                      title="{{ value }}"
+                    {% endif %}
+                  >
+                    <span>{{ value }}</span>
+                  </label>
+                {%- endfor -%}
+              </div>
+            </fieldset>
+          {%- endfor -%}
+        {%- endunless -%}
+      <!-- END: Variant Selector -->
+
+        <!-- BEGIN: Quantity + Add-to-Cart (anchor) -->
+        <div class="pnice-pdp__cta-row" data-pnice-cta-row>
+          <div class="pnice-pdp__qty">
+            <button type="button" class="pnice-pdp__qty-btn" data-pnice-qty="-1" aria-label="Decrease quantity">−</button>
+            <input
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+              class="pnice-pdp__qty-input"
+              data-pnice-qty-input
+              aria-label="Quantity"
+            >
+            <button type="button" class="pnice-pdp__qty-btn" data-pnice-qty="1" aria-label="Increase quantity">+</button>
+          </div>
+          <button
+            type="submit"
+            class="pnice-pdp__add"
+            data-pnice-add
+            {% unless product.available %}disabled{% endunless %}
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><path d="M6 8h12l-1 12H7L6 8Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 8a3 3 0 0 1 6 0" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            <span data-pnice-add-text>{% if product.available %}Add to Cart{% else %}Sold Out{% endif %}</span>
+          </button>
+        </div>
+        <!-- END: Quantity + Add-to-Cart (anchor) -->
+      </form>
+
+      <!-- BEGIN: Benefit-First Description -->
+      <div class="pnice-pdp__desc">
+        {%- assign full_desc = product.description -%}
+        {%- assign hook = product.metafields.custom.hook | default: product.metafields.descriptors.subtitle | default: '' -%}
+        {%- if hook == blank -%}
+          {%- comment -%} Use first sentence of description as the hook {%- endcomment -%}
+          {%- assign hook_raw = full_desc | strip_html | split: '. ' | first -%}
+          {%- assign hook = hook_raw | append: '.' -%}
+        {%- endif -%}
+
+        {%- if hook != blank -%}
+          <p class="pnice-pdp__hook">{{ hook }}</p>
+        {%- endif -%}
+
+        {%- if full_desc != blank -%}
+          <details class="pnice-pdp__readmore" data-pnice-readmore>
+            <summary>
+              <span class="pnice-pdp__readmore-label" data-when-closed>Read More</span>
+              <span class="pnice-pdp__readmore-label" data-when-open hidden>Read Less</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="pnice-pdp__readmore-icon"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="pnice-pdp__desc-body rte">{{ full_desc }}</div>
+          </details>
+        {%- endif -%}
+      </div>
+      <!-- END: Benefit-First Description -->
+    </div>
+  </div>
+
+  <!-- BEGIN: Customer Reviews -->
+  <div class="pnice-wrap pnice-pdp__reviews-block">
+    <h2 class="pnice-pdp__reviews-heading">What Our Customers Say</h2>
+
+    {%- if section.settings.reviews_provider == 'judgeme' -%}
+      {%- comment -%} Judge.me full reviews widget {%- endcomment -%}
+      <div class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}"></div>
+    {%- else -%}
+      {%- assign reviews_metaobject = product.metafields[section.settings.reviews_namespace].reviews.value -%}
+      {%- if reviews_metaobject and reviews_metaobject.size > 0 -%}
+        <ul class="pnice-pdp__review-list" role="list">
+          {%- for r in reviews_metaobject -%}
+            <li class="pnice-pdp__review">
+              <div class="pnice-pdp__stars">
+                {%- assign rstars = r.rating.value | default: 5 | round -%}
+                {%- for i in (1..5) -%}
+                  <svg class="pnice-pdp__star{% if forloop.index <= rstars %} is-on{% endif %}" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.6 1.4 6.8L12 17.8 5.9 21.3l1.4-6.8L2.2 9.9l6.9-.8z"/></svg>
+                {%- endfor -%}
+              </div>
+              <p class="pnice-pdp__review-quote">{{ r.body.value | default: r.quote.value }}</p>
+              <p class="pnice-pdp__review-author">— {{ r.author.value | default: r.name.value | default: 'Verified Buyer' }}</p>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <p class="pnice-pdp__reviews-empty">No reviews yet. Be the first to share your experience.</p>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+  <!-- END: Customer Reviews -->
+
+  <!-- BEGIN: You May Also Like -->
+  {%- assign related_collection = product.collections | first -%}
+  {%- if related_collection -%}
+    <div class="pnice-wrap pnice-pdp__related-block">
+      <h2 class="pnice-pdp__related-heading">You May Also Like</h2>
+      <div class="pnice-pdp__related-grid">
+        {%- assign shown = 0 -%}
+        {%- for p in related_collection.products -%}
+          {%- if p.id == product.id -%}{%- continue -%}{%- endif -%}
+          {%- if shown >= 4 -%}{%- break -%}{%- endif -%}
+          <article class="pnice-pdp__related-card">
+            <a href="{{ p.url }}" class="pnice-pdp__related-link">
+              {%- if p.featured_image -%}
+                <img src="{{ p.featured_image | image_url: width: 600 }}" alt="{{ p.title }}" loading="lazy" width="300" height="300">
+              {%- else -%}
+                {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+              <h3 class="pnice-pdp__related-title">{{ p.title }}</h3>
+              <p class="pnice-pdp__related-price">{{ p.price | money }}</p>
+            </a>
+            <form method="post" action="{{ routes.cart_add_url }}" class="pnice-pdp__related-form" data-pnice-related-form>
+              <input type="hidden" name="id" value="{{ p.first_available_variant.id }}">
+              <button type="submit" class="pnice-pdp__related-add"{% unless p.available %} disabled{% endunless %}>
+                {% if p.available %}Add to Cart{% else %}Sold Out{% endif %}
+              </button>
+            </form>
+          </article>
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+  <!-- END: You May Also Like -->
+
+  <!-- BEGIN: Sticky Add-to-Cart -->
+  <div class="pnice-pdp__sticky" data-pnice-sticky hidden>
+    <div class="pnice-wrap pnice-pdp__sticky-wrap">
+      <div class="pnice-pdp__sticky-info">
+        {%- if product.featured_image -%}
+          <img src="{{ product.featured_image | image_url: width: 120 }}" alt="" class="pnice-pdp__sticky-img" loading="lazy" width="48" height="48">
+        {%- endif -%}
+        <div>
+          <span class="pnice-pdp__sticky-title">{{ product.title }}</span>
+          <span class="pnice-pdp__sticky-price" data-pnice-sticky-price>{{ product.selected_or_first_available_variant.price | money }}</span>
+        </div>
+      </div>
+      <button type="button" class="pnice-pdp__sticky-btn" data-pnice-sticky-add{% unless product.available %} disabled{% endunless %}>
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><path d="M6 8h12l-1 12H7L6 8Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 8a3 3 0 0 1 6 0" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span>{% if product.available %}Add to Cart{% else %}Sold Out{% endif %}</span>
+      </button>
+    </div>
+  </div>
+  <!-- END: Sticky Add-to-Cart -->
+</section>
+
+<!-- BEGIN: PNICE PDP product JSON (used by JS to swap variants) -->
+<script type="application/json" data-pnice-product-json>
+  {{ product | json }}
+</script>
+<!-- END: PNICE PDP product JSON -->
+
+{% stylesheet %}
+  /* BEGIN: PNICE PDP styles */
+  .pnice-pdp {
+    --pdp-sage: var(--pnice-sage, #4a6741);
+    --pdp-sage-deep: var(--pnice-sage-deep, #3a4d33);
+    --pdp-gold: var(--pnice-gold, #b0893f);
+    --pdp-line: var(--pnice-line, #e3dccf);
+    --pdp-paper: var(--pnice-paper, #faf7f1);
+    --pdp-ink: var(--pnice-ink, #2c2e29);
+    --pdp-cta-bg: #000;
+    --pdp-cta-text: #fff;
+    font-family: var(--font-body--family);
+    color: var(--color-foreground);
+    padding-block: clamp(24px, 4vw, 64px);
+  }
+  .pnice-pdp__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  @media (min-width: 880px) {
+    .pnice-pdp__grid {
+      grid-template-columns: 1.05fr 1fr;
+      gap: 60px;
+      align-items: flex-start;
+    }
+  }
+
+  /* Gallery */
+  .pnice-pdp__stage {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 4px;
+    background: #f4f4f2;
+    touch-action: pan-y;
+  }
+  .pnice-pdp__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+  .pnice-pdp__slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .pnice-pdp__main-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .pnice-pdp__stage:hover .pnice-pdp__slide.is-active .pnice-pdp__main-img {
+      transform: scale(var(--zoom, 1.6));
+    }
+  }
+  .pnice-pdp__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--pdp-ink);
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .pnice-pdp__nav svg { width: 18px; height: 18px; }
+  .pnice-pdp__nav--prev { left: 12px; }
+  .pnice-pdp__nav--next { right: 12px; }
+  .pnice-pdp__thumbs {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    padding-bottom: 4px;
+  }
+  .pnice-pdp__thumb {
+    flex: 0 0 72px;
+    width: 72px;
+    height: 72px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    background: #f4f4f2;
+    padding: 0;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .pnice-pdp__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pnice-pdp__thumb.is-active { border-color: var(--pdp-sage); }
+
+  /* Info column */
+  .pnice-pdp__vendor {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pdp-gold);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  /* Ratings */
+  .pnice-pdp__rating-top { margin-bottom: 16px; }
+  .pnice-pdp__stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .pnice-pdp__star {
+    width: 16px;
+    height: 16px;
+    fill: transparent;
+    stroke: var(--pdp-gold);
+    stroke-width: 1.4;
+  }
+  .pnice-pdp__star.is-on { fill: var(--pdp-gold); }
+  .pnice-pdp__stars--placeholder .pnice-pdp__star { stroke: rgba(0, 0, 0, 0.2); }
+  .pnice-pdp__rating-meta {
+    font-size: 13px;
+    margin-left: 8px;
+    color: var(--color-foreground);
+    opacity: 0.72;
+  }
+
+  /* Title + Pricing */
+  .pnice-pdp__title {
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--color-foreground-heading);
+    margin-bottom: 16px;
+  }
+  .pnice-pdp__pricing {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .pnice-pdp__price {
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: 28px;
+    color: var(--pdp-sage);
+    font-weight: 500;
+  }
+  .pnice-pdp__compare {
+    font-size: 18px;
+    color: var(--color-foreground);
+    opacity: 0.55;
+  }
+  .pnice-pdp__compare[hidden] { display: none; }
+  .pnice-pdp__sale-badge {
+    background: var(--pdp-cta-bg);
+    color: var(--pdp-cta-text);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    padding: 4px 10px;
+    border-radius: 30px;
+    font-weight: 600;
+  }
+  .pnice-pdp__sale-badge[hidden] { display: none; }
+
+  /* Trust badges */
+  .pnice-pdp__trust {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 16px;
+    list-style: none;
+    padding: 16px 0;
+    margin: 0 0 20px;
+    border-top: 1px solid var(--pdp-line);
+    border-bottom: 1px solid var(--pdp-line);
+  }
+  @media (min-width: 540px) { .pnice-pdp__trust { grid-template-columns: repeat(4, 1fr); } }
+  .pnice-pdp__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    color: var(--color-foreground);
+  }
+  .pnice-pdp__trust-item svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--pdp-sage); }
+
+  /* Variant selector */
+  .pnice-pdp__option { border: 0; padding: 0; margin: 0 0 18px; }
+  .pnice-pdp__option-label {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 6px;
+    color: var(--color-foreground);
+  }
+  .pnice-pdp__option-label strong { font-weight: 600; color: var(--color-foreground-heading); }
+  .pnice-pdp__option-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .pnice-pdp__option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* Pill (size) */
+  .pnice-pdp__option-values--pill .pnice-pdp__option-value {
+    min-width: 56px;
+    padding: 10px 16px;
+    border: 1px solid var(--pdp-line);
+    border-radius: 30px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+    background: #fff;
+  }
+  .pnice-pdp__option-values--pill input:checked + .pnice-pdp__option-value {
+    background: var(--pdp-sage);
+    color: #fff;
+    border-color: var(--pdp-sage);
+  }
+  /* Swatch (color) */
+  .pnice-pdp__option-values--swatch .pnice-pdp__option-value {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--swatch-color, #ccc);
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px var(--pdp-line);
+    cursor: pointer;
+    position: relative;
+    transition: box-shadow 0.2s;
+  }
+  .pnice-pdp__option-values--swatch .pnice-pdp__option-value span { position: absolute; left: -9999px; }
+  .pnice-pdp__option-values--swatch input:checked + .pnice-pdp__option-value {
+    box-shadow: 0 0 0 2px var(--pdp-sage);
+  }
+
+  /* Quantity + CTA */
+  .pnice-pdp__cta-row {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+    margin: 8px 0 24px;
+  }
+  .pnice-pdp__qty {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--pdp-line);
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .pnice-pdp__qty-btn {
+    width: 40px;
+    height: 100%;
+    background: none;
+    border: 0;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .pnice-pdp__qty-input {
+    width: 44px;
+    text-align: center;
+    border: 0;
+    font-family: inherit;
+    font-size: 14px;
+    -moz-appearance: textfield;
+  }
+  .pnice-pdp__qty-input::-webkit-outer-spin-button,
+  .pnice-pdp__qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .pnice-pdp__add {
+    flex: 1;
+    background: var(--pdp-cta-bg);
+    color: var(--pdp-cta-text);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 24px;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .pnice-pdp__add:hover:not(:disabled) { background: #1a1a1a; transform: translateY(-1px); }
+  .pnice-pdp__add:disabled { opacity: 0.5; cursor: not-allowed; }
+  .pnice-pdp__add.is-loading { opacity: 0.8; }
+  .pnice-pdp__add.is-added { background: var(--pdp-sage); }
+
+  /* Description */
+  .pnice-pdp__desc { margin-top: 8px; }
+  .pnice-pdp__hook {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--color-foreground);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .pnice-pdp__readmore {
+    margin-top: 8px;
+  }
+  .pnice-pdp__readmore summary {
+    cursor: pointer;
+    list-style: none;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pdp-sage);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    padding: 6px 0;
+  }
+  .pnice-pdp__readmore summary::-webkit-details-marker { display: none; }
+  .pnice-pdp__readmore-icon { width: 16px; height: 16px; transition: transform 0.25s; }
+  .pnice-pdp__readmore[open] .pnice-pdp__readmore-icon { transform: rotate(180deg); }
+  .pnice-pdp__readmore[open] [data-when-closed] { display: none; }
+  .pnice-pdp__readmore[open] [data-when-open] { display: inline !important; }
+  .pnice-pdp__desc-body {
+    margin-top: 14px;
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--color-foreground);
+  }
+  .pnice-pdp__desc-body p { margin-bottom: 12px; }
+
+  /* Reviews block */
+  .pnice-pdp__reviews-block {
+    margin-top: clamp(40px, 6vw, 80px);
+    padding-top: 32px;
+    border-top: 1px solid var(--pdp-line);
+  }
+  .pnice-pdp__reviews-heading {
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 500;
+    color: var(--color-foreground-heading);
+    margin-bottom: 24px;
+  }
+  .pnice-pdp__review-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .pnice-pdp__review-list { grid-template-columns: repeat(3, 1fr); } }
+  .pnice-pdp__review {
+    background: #fff;
+    border: 1px solid var(--pdp-line);
+    border-radius: 5px;
+    padding: 24px;
+  }
+  .pnice-pdp__review-quote {
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.45;
+    margin: 12px 0;
+    color: var(--color-foreground-heading);
+  }
+  .pnice-pdp__review-author { font-size: 13px; opacity: 0.72; }
+  .pnice-pdp__reviews-empty { color: var(--color-foreground); opacity: 0.65; font-size: 14px; }
+
+  /* Cross-sell */
+  .pnice-pdp__related-block {
+    margin-top: clamp(40px, 6vw, 80px);
+    padding-top: 32px;
+    border-top: 1px solid var(--pdp-line);
+  }
+  .pnice-pdp__related-heading {
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 500;
+    color: var(--color-foreground-heading);
+    margin-bottom: 20px;
+  }
+  .pnice-pdp__related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(220px, 1fr));
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+  @media (max-width: 720px) {
+    .pnice-pdp__related-grid {
+      grid-template-columns: repeat(4, 75vw);
+    }
+    .pnice-pdp__related-card { scroll-snap-align: start; }
+  }
+  @media (min-width: 880px) {
+    .pnice-pdp__related-grid {
+      overflow: visible;
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .pnice-pdp__related-card {
+    background: #fff;
+    border: 1px solid var(--pdp-line);
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .pnice-pdp__related-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .pnice-pdp__related-link img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+  }
+  .pnice-pdp__related-title {
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: 18px;
+    font-weight: 500;
+    padding: 14px 14px 4px;
+    color: var(--color-foreground-heading);
+  }
+  .pnice-pdp__related-price {
+    padding: 0 14px 14px;
+    color: var(--pdp-sage);
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: 17px;
+  }
+  .pnice-pdp__related-form { padding: 0 14px 14px; }
+  .pnice-pdp__related-add {
+    width: 100%;
+    background: var(--pdp-cta-bg);
+    color: var(--pdp-cta-text);
+    border: 0;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .pnice-pdp__related-add:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Sticky CTA */
+  .pnice-pdp__sticky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    border-top: 1px solid var(--pdp-line);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08);
+    z-index: 80;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  .pnice-pdp__sticky.is-visible { transform: translateY(0); }
+  .pnice-pdp__sticky-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 10px;
+  }
+  .pnice-pdp__sticky-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+  .pnice-pdp__sticky-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .pnice-pdp__sticky-title {
+    display: block;
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-foreground-heading);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 50vw;
+  }
+  .pnice-pdp__sticky-price {
+    display: block;
+    color: var(--pdp-sage);
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: 15px;
+  }
+  .pnice-pdp__sticky-btn {
+    background: var(--pdp-cta-bg);
+    color: var(--pdp-cta-text);
+    border: 0;
+    padding: 12px 20px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .pnice-pdp__sticky-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  @media (max-width: 540px) {
+    .pnice-pdp__sticky-title { font-size: 13px; max-width: 40vw; }
+    .pnice-pdp__sticky-btn { padding: 12px 16px; font-size: 11px; }
+  }
+  /* END: PNICE PDP styles */
+{% endstylesheet %}
+
+{% javascript %}
+  // BEGIN: PNICE PDP behavior
+  (function () {
+    const sections = document.querySelectorAll('.pnice-pdp');
+    sections.forEach(initSection);
+
+    function initSection(root) {
+      const productJsonEl = root.querySelector('[data-pnice-product-json]');
+      let product = null;
+      try { product = JSON.parse(productJsonEl.textContent); } catch (e) {}
+
+      initGallery(root);
+      initVariantPicker(root, product);
+      initQuantity(root);
+      initAddToCart(root);
+      initStickyCTA(root);
+      initRelatedForms(root);
+    }
+
+    /* Gallery: thumbs + arrows + swipe */
+    function initGallery(root) {
+      const stage = root.querySelector('[data-pnice-stage]');
+      if (!stage) return;
+      const slides = root.querySelectorAll('[data-pnice-slide]');
+      const thumbs = root.querySelectorAll('[data-pnice-thumb]');
+      let index = 0;
+
+      function show(i) {
+        index = (i + slides.length) % slides.length;
+        slides.forEach((s, k) => s.classList.toggle('is-active', k === index));
+        thumbs.forEach((t, k) => t.classList.toggle('is-active', k === index));
+      }
+      thumbs.forEach((t) => t.addEventListener('click', () => show(parseInt(t.dataset.pniceThumb, 10))));
+      root.querySelector('[data-pnice-prev]')?.addEventListener('click', () => show(index - 1));
+      root.querySelector('[data-pnice-next]')?.addEventListener('click', () => show(index + 1));
+
+      // Swipe
+      let startX = 0, dx = 0, dragging = false;
+      stage.addEventListener('touchstart', (e) => { dragging = true; startX = e.touches[0].clientX; dx = 0; }, { passive: true });
+      stage.addEventListener('touchmove', (e) => { if (dragging) dx = e.touches[0].clientX - startX; }, { passive: true });
+      stage.addEventListener('touchend', () => {
+        if (!dragging) return;
+        dragging = false;
+        if (dx > 40) show(index - 1);
+        else if (dx < -40) show(index + 1);
+      });
+
+      // Desktop zoom-on-hover follows pointer
+      const activeImg = () => stage.querySelector('.pnice-pdp__slide.is-active .pnice-pdp__main-img');
+      stage.addEventListener('mousemove', (e) => {
+        const img = activeImg();
+        if (!img) return;
+        const r = stage.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width) * 100;
+        const y = ((e.clientY - r.top) / r.height) * 100;
+        img.style.transformOrigin = `${x}% ${y}%`;
+      });
+      stage.addEventListener('mouseleave', () => {
+        const img = activeImg();
+        if (img) img.style.transformOrigin = '';
+      });
+    }
+
+    /* Variant picker: react to option changes */
+    function initVariantPicker(root, product) {
+      if (!product) return;
+      const inputs = root.querySelectorAll('[data-pnice-option-input]');
+      inputs.forEach((input) => {
+        input.addEventListener('change', () => {
+          const selected = getSelectedOptions(root);
+          const variant = product.variants.find((v) =>
+            selected.every((val, i) => v.options[i] === val)
+          );
+          updateForVariant(root, variant);
+        });
+      });
+    }
+    function getSelectedOptions(root) {
+      const fieldsets = root.querySelectorAll('.pnice-pdp__option');
+      return Array.from(fieldsets).map((fs) => {
+        const checked = fs.querySelector('[data-pnice-option-input]:checked');
+        return checked ? checked.value : null;
+      });
+    }
+    function updateForVariant(root, variant) {
+      const priceEl = root.querySelector('[data-pnice-price]');
+      const compareEl = root.querySelector('[data-pnice-compare]');
+      const saleBadge = root.querySelector('[data-pnice-sale-badge]');
+      const stickyPrice = root.querySelector('[data-pnice-sticky-price]');
+      const variantInput = root.querySelector('[data-pnice-variant-input]');
+      const addBtn = root.querySelector('[data-pnice-add]');
+      const addText = root.querySelector('[data-pnice-add-text]');
+      const stickyBtn = root.querySelector('[data-pnice-sticky-add]');
+
+      if (!variant) {
+        if (addText) addText.textContent = 'Unavailable';
+        if (addBtn) addBtn.disabled = true;
+        if (stickyBtn) stickyBtn.disabled = true;
+        return;
+      }
+
+      variantInput.value = variant.id;
+      const money = (cents) => formatMoney(cents);
+      if (priceEl) priceEl.textContent = money(variant.price);
+      if (stickyPrice) stickyPrice.textContent = money(variant.price);
+      if (compareEl) {
+        if (variant.compare_at_price && variant.compare_at_price > variant.price) {
+          compareEl.textContent = money(variant.compare_at_price);
+          compareEl.hidden = false;
+          if (saleBadge) saleBadge.hidden = false;
+        } else {
+          compareEl.hidden = true;
+          if (saleBadge) saleBadge.hidden = true;
+        }
+      }
+      if (addBtn) addBtn.disabled = !variant.available;
+      if (stickyBtn) stickyBtn.disabled = !variant.available;
+      if (addText) addText.textContent = variant.available ? 'Add to Cart' : 'Sold Out';
+
+      // Update URL with selected variant (non-destructive)
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('variant', variant.id);
+        window.history.replaceState({}, '', url);
+      } catch (e) {}
+
+      // Update option display labels
+      const fieldsets = root.querySelectorAll('.pnice-pdp__option');
+      fieldsets.forEach((fs, i) => {
+        const display = fs.querySelector('[data-pnice-option-display]');
+        if (display && variant.options[i] != null) display.textContent = variant.options[i];
+      });
+    }
+
+    function formatMoney(cents) {
+      const fmt = (window.Shopify && Shopify.money_format) || '${{amount}}';
+      const amount = (cents / 100).toFixed(2);
+      return fmt
+        .replace('{{amount}}', amount)
+        .replace('{{amount_no_decimals}}', Math.round(cents / 100))
+        .replace('{{amount_with_comma_separator}}', amount.replace('.', ','));
+    }
+
+    /* Quantity stepper */
+    function initQuantity(root) {
+      const input = root.querySelector('[data-pnice-qty-input]');
+      if (!input) return;
+      root.querySelectorAll('[data-pnice-qty]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const delta = parseInt(btn.dataset.pniceQty, 10);
+          const next = Math.max(1, (parseInt(input.value, 10) || 1) + delta);
+          input.value = next;
+        });
+      });
+    }
+
+    /* Add to Cart: AJAX so Horizon cart drawer can refresh */
+    function initAddToCart(root) {
+      const form = root.querySelector('[data-pnice-form]');
+      const stickyBtn = root.querySelector('[data-pnice-sticky-add]');
+      if (form) form.addEventListener('submit', (e) => { e.preventDefault(); submitAdd(form); });
+      if (stickyBtn) stickyBtn.addEventListener('click', () => submitAdd(form));
+    }
+
+    async function submitAdd(form) {
+      if (!form) return;
+      const btn = form.querySelector('[data-pnice-add]');
+      const btnText = form.querySelector('[data-pnice-add-text]');
+      const origText = btnText ? btnText.textContent : '';
+      if (btn) { btn.disabled = true; btn.classList.add('is-loading'); }
+      if (btnText) btnText.textContent = 'Adding…';
+      try {
+        const fd = new FormData(form);
+        const res = await fetch(window.Shopify?.routes?.root + 'cart/add.js' || '/cart/add.js', {
+          method: 'POST',
+          body: fd,
+          headers: { 'Accept': 'application/javascript' }
+        });
+        if (!res.ok) throw new Error('Add to cart failed');
+        if (btn) btn.classList.add('is-added');
+        if (btnText) btnText.textContent = 'Added ✓';
+        // Try to open Horizon cart drawer if present
+        document.dispatchEvent(new CustomEvent('cart:refresh'));
+        const drawerToggle = document.querySelector('cart-drawer-component, .cart-drawer, [data-cart-drawer]');
+        if (drawerToggle && typeof drawerToggle.open === 'function') drawerToggle.open();
+      } catch (err) {
+        if (btnText) btnText.textContent = 'Error — try again';
+      } finally {
+        setTimeout(() => {
+          if (btn) { btn.disabled = false; btn.classList.remove('is-loading', 'is-added'); }
+          if (btnText) btnText.textContent = origText || 'Add to Cart';
+        }, 1600);
+      }
+    }
+
+    /* Sticky CTA: show only after passing the original button */
+    function initStickyCTA(root) {
+      const sticky = root.querySelector('[data-pnice-sticky]');
+      const anchor = root.querySelector('[data-pnice-cta-row]');
+      if (!sticky || !anchor) return;
+      sticky.hidden = false;
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => sticky.classList.toggle('is-visible', !e.isIntersecting)),
+        { rootMargin: '0px 0px -40% 0px', threshold: 0 }
+      );
+      io.observe(anchor);
+    }
+
+    /* Cross-sell forms: AJAX add so the user stays on the PDP */
+    function initRelatedForms(root) {
+      root.querySelectorAll('[data-pnice-related-form]').forEach((form) => {
+        form.addEventListener('submit', (e) => { e.preventDefault(); submitAdd(form); });
+      });
+    }
+  })();
+  // END: PNICE PDP behavior
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "P-nice Product Page",
+  "tag": "section",
+  "class": "section-wrapper pnice-pdp-wrapper",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "reviews_provider",
+      "label": "Reviews provider",
+      "options": [
+        { "value": "shopify", "label": "Shopify metafields" },
+        { "value": "judgeme", "label": "Judge.me" },
+        { "value": "none", "label": "None (placeholder)" }
+      ],
+      "default": "shopify"
+    },
+    {
+      "type": "text",
+      "id": "reviews_namespace",
+      "label": "Metafield namespace for reviews",
+      "default": "reviews",
+      "info": "Used to read product.metafields.<namespace>.rating / .rating_count / .reviews"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "P-nice Product Page",
+      "category": "P-nice"
+    }
+  ]
+}
+{% endschema %}

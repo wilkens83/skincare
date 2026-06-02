@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "pnice_product": {
+      "type": "pnice-product",
+      "settings": {
+        "show_vendor": true,
+        "reviews_provider": "shopify",
+        "reviews_namespace": "reviews",
+        "color_scheme": "scheme-1"
+      }
+    }
+  },
+  "order": ["pnice_product"]
+}
