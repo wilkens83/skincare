@@ -306,6 +306,13 @@
     "pnice_formula": {
       "type": "pnice-formula",
       "blocks": {
+        "ingredient_Phqfb9": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Melatonin",
+            "description": "Bio-identical antioxidant that fights free-radical damage during your skin's peak nocturnal repair phase."
+          }
+        },
         "i1": {
           "type": "ingredient",
           "settings": {
@@ -336,6 +343,7 @@
         }
       },
       "block_order": [
+        "ingredient_Phqfb9",
         "i1",
         "i2",
         "i3",
