@@ -87,10 +87,10 @@
       ],
       "settings": {
         "eyebrow": "Wellness From Within",
-        "heading": "<p>Good for your skin.<br><em>Better</em> for you.</p>",
+        "heading": "<p>Good for your skin.<br/><em>Better</em> for you.</p>",
         "subheading": "Clean, clinically-considered skincare made with bio-identical actives and soothing botanicals — formulated to work with your skin, never against it.",
         "primary_label": "Shop Now",
-        "primary_link": "/collections/night-skincare",
+        "primary_link": "shopify://collections/all",
         "secondary_label": "Explore Ingredients",
         "secondary_link": "#pnice_formula",
         "show_stamp": true,
@@ -147,7 +147,7 @@
             "fallback_asset": "pnice-serum-open.jpg",
             "alt_text": "P-NICE night skincare collection — collagen cream and retinol serum",
             "title": "Skincare",
-            "link": "/collections/night-skincare",
+            "link": "shopify://products/retinol-and-peptide-face-serum",
             "cta": "Shop Now",
             "coming_soon": false
           }
@@ -159,7 +159,7 @@
             "fallback_asset": "",
             "alt_text": "P-NICE Haircare collection",
             "title": "Haircare",
-            "link": "",
+            "link": "shopify://products/sleep-plus-collagen-cream",
             "cta": "Notify Me",
             "coming_soon": false
           }
@@ -186,7 +186,7 @@
         "heading": "Shop by Category",
         "subheading": "Thoughtfully formulated collections for every step of your routine — from overnight repair to everyday glow.",
         "viewall_label": "View All Products",
-        "viewall_link": "/collections/all",
+        "viewall_link": "shopify://collections/all",
         "color_scheme": "scheme-1"
       }
     },
