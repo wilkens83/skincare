@@ -88,7 +88,7 @@
       "settings": {
         "eyebrow": "Wellness From Within",
         "heading": "<p>Good for your skin.<br/><em>Better</em> for you.</p>",
-        "subheading": "Clean, clinically-considered skincare made with bio-identical actives and soothing botanicals — formulated to work with your skin, never against it.",
+        "subheading": "Clean, thoughtfully-formulated skincare made with carefully-selected actives and soothing botanicals — designed to support your skin, gently.",
         "primary_label": "Shop Now",
         "primary_link": "shopify://collections/all",
         "secondary_label": "Explore Ingredients",
@@ -147,7 +147,7 @@
             "fallback_asset": "pnice-serum-open.jpg",
             "alt_text": "P-NICE night skincare collection — collagen cream and retinol serum",
             "title": "Skincare",
-            "link": "shopify://products/retinol-and-peptide-face-serum",
+            "link": "shopify://products/retinol-peptide-face-serum",
             "cta": "Shop Now",
             "coming_soon": false
           }
@@ -184,7 +184,7 @@
       "settings": {
         "eyebrow": "Find your ritual",
         "heading": "Shop by Category",
-        "subheading": "Thoughtfully formulated collections for every step of your routine — from overnight repair to everyday glow.",
+        "subheading": "Thoughtfully formulated collections for every step of your routine — from your evening ritual to everyday glow.",
         "viewall_label": "View All Products",
         "viewall_link": "shopify://collections/all",
         "color_scheme": "scheme-1"
@@ -249,7 +249,7 @@
             "gold_tag": false,
             "rating": "4.9",
             "review_count": "842",
-            "link": "/products/retinol-peptide-face-serum"
+            "link": "shopify://products/retinol-peptide-face-serum"
           }
         },
         "s2": {
@@ -266,7 +266,7 @@
             "gold_tag": false,
             "rating": "4.8",
             "review_count": "1204",
-            "link": "/products/sleep-plus-collagen-cream"
+            "link": "shopify://products/sleep-plus-collagen-cream"
           }
         },
         "s3": {
@@ -283,7 +283,7 @@
             "gold_tag": true,
             "rating": "5.0",
             "review_count": "389",
-            "link": "/collections/night-skincare"
+            "link": "shopify://collections/night-skincare"
           }
         }
       },
@@ -310,35 +310,35 @@
           "type": "ingredient",
           "settings": {
             "name": "Melatonin",
-            "description": "Bio-identical antioxidant that fights free-radical damage during your skin's peak nocturnal repair phase."
+            "description": "An antioxidant ingredient that helps support skin's natural overnight renewal and a refreshed-looking complexion by morning."
           }
         },
         "i1": {
           "type": "ingredient",
           "settings": {
             "name": "Melatonin",
-            "description": "Bio-identical antioxidant that fights free-radical damage during your skin's peak nocturnal repair phase."
+            "description": "An antioxidant ingredient that helps support skin's natural overnight renewal and a refreshed-looking complexion by morning."
           }
         },
         "i2": {
           "type": "ingredient",
           "settings": {
             "name": "Hyaluronic Acid",
-            "description": "Locks in up to 1000× its weight in moisture so you wake up plump and deeply hydrated."
+            "description": "A humectant that helps the skin feel deeply hydrated and look plump and refreshed."
           }
         },
         "i3": {
           "type": "ingredient",
           "settings": {
             "name": "Hexapeptide-11",
-            "description": "Supports natural structural proteins to visibly firm and refine facial contours."
+            "description": "A peptide that helps skin look firmer and more refined over time."
           }
         },
         "i4": {
           "type": "ingredient",
           "settings": {
             "name": "Bisabolol",
-            "description": "Calms on contact — all the benefits of retinol with none of the flaking or redness."
+            "description": "A soothing botanical that helps skin feel calm and comfortable alongside active ingredients."
           }
         }
       },
@@ -351,8 +351,8 @@
       ],
       "settings": {
         "eyebrow": "Inside the formula",
-        "heading": "The science of overnight repair.",
-        "lead": "Your skin does its most important work while you sleep. We pair clinically-studied actives with calming botanicals so every ingredient earns its place — high performance, zero harshness.",
+        "heading": "Inside the formula.",
+        "lead": "We pair thoughtfully-selected actives with calming botanicals so every ingredient earns its place — refined, restrained, and made for sensitive skin.",
         "image": "shopify://shop_images/Image_p1x6yip1x6yip1x6.png",
         "fallback_asset": "pnice-infographic.jpg",
         "color_scheme": "scheme-1"
@@ -364,7 +364,7 @@
         "rv1": {
           "type": "review",
           "settings": {
-            "quote": "I wake up looking like I slept ten hours even when I didn't. The Sleep+ cream is genuinely magic.",
+            "quote": "My skin looks more refreshed and rested in the mornings. The Sleep Plus cream has become a non-negotiable in my routine.",
             "name": "Maya R.",
             "meta": "Verified Buyer · 28 days"
           }
@@ -394,7 +394,16 @@
       "settings": {
         "eyebrow": "Real skin, real results",
         "heading": "Loved by Real Beauty",
-        "subheading": "Over 10,000 customers report a more luminous, glass-like complexion within 14 days.",
+        "subheading": "Customers love how their skin looks more luminous and refreshed with continued use.",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "pnice_policy_bar": {
+      "type": "pnice-policy-bar",
+      "settings": {
+        "heading": "Customer Info",
+        "show_faq": true,
+        "show_accessibility": false,
         "color_scheme": "scheme-1"
       }
     },
@@ -420,6 +429,7 @@
     "pnice_bestsellers",
     "pnice_formula",
     "pnice_reviews",
-    "pnice_newsletter"
+    "pnice_newsletter",
+    "pnice_policy_bar"
   ]
 }

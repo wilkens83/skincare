@@ -285,6 +285,10 @@
         {%- endif -%}
       </div>
       <!-- END: Benefit-First Description -->
+
+      <!-- BEGIN: Product Info (Ingredients / How to Use / Warnings) -->
+      {%- render 'pnice-product-info', product: product -%}
+      <!-- END: Product Info (Ingredients / How to Use / Warnings) -->
     </div>
   </div>
 
@@ -379,6 +383,19 @@
   {{ product | json }}
 </script>
 <!-- END: PNICE PDP product JSON -->
+
+<!-- BEGIN: PNICE PDP noscript fallback (crawlers + no-JS users see full content) -->
+<noscript>
+  <style>
+    .pnice-pdp__nav, .pnice-pdp__thumbs, .pnice-pdp__sticky { display: none !important; }
+    .pnice-pdp__slide { opacity: 1 !important; position: relative !important; inset: auto !important; pointer-events: auto !important; }
+    .pnice-pdp__stage { aspect-ratio: auto !important; }
+    .pnice-pdp__readmore[open] .pnice-pdp__desc-body,
+    .pnice-pdp__desc-body { display: block !important; }
+    .pnice-pdp__readmore summary { display: none; }
+  </style>
+</noscript>
+<!-- END: PNICE PDP noscript fallback -->
 
 {% stylesheet %}
   /* BEGIN: PNICE PDP styles */
