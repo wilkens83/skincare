@@ -11,72 +11,30 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
-    "pnice_shipping_info_JmChKN": {
-      "type": "pnice-shipping-info",
-      "blocks": {
-        "info_block_HJ9txe": {
-          "type": "info_block",
-          "settings": {
-            "title": "Order processing",
-            "body": "<p>Orders placed Monday through Friday before 12 pm ET ship the same business day. Orders placed after 12 pm ET, on weekends, or on US holidays ship the next business day. You'll get an email with tracking as soon as your label is created.</p>"
-          }
-        },
-        "info_block_h4D8Ke": {
-          "type": "info_block",
-          "settings": {
-            "title": "Tracking your order",
-            "body": "<p>Every order includes a tracking link in your shipping confirmation email. If you don't see it in your inbox within 2 business days of ordering, check your spam folder, then email us at <a href=\"mailto:support@p-nice.com\">support@p-nice.com</a> — we'll re-send your tracking right away.</p>"
-          }
-        },
-        "info_block_B7wq9E": {
-          "type": "info_block",
-          "settings": {
-            "title": "International shipping",
-            "body": "<p>We currently ship within the United States only, including Alaska, Hawaii, and Puerto Rico. We're working on expanding internationally — <a href=\"#pnice_newsletter\">join our email list</a> to be notified when we ship to your country.</p>"
-          }
-        },
-        "info_block_wFqaep": {
-          "type": "info_block",
-          "settings": {
-            "title": "Lost or damaged packages",
-            "body": "<p>If your package arrives damaged, take a photo of the box and contents and email <a href=\"mailto:support@p-nice.com\">support@p-nice.com</a> within 7 days of delivery. We'll send a replacement at no cost. If your package is marked delivered but missing, please wait 48 hours (carriers occasionally update status early), then contact us — we'll work with the carrier on your behalf and make it right.</p>"
-          }
-        },
-        "info_block_3yj6k7": {
-          "type": "info_block",
-          "settings": {
-            "title": "Returns &amp; refunds",
-            "body": "<p>P-nice offers a 30-day satisfaction guarantee. If you're not happy with your purchase, see our <a href=\"/policies/refund-policy\">Refund Policy</a> or email <a href=\"mailto:support@p-nice.com\">support@p-nice.com</a> and we'll make it right.</p>"
-          }
-        },
-        "info_block_hkPkGQ": {
-          "type": "info_block",
-          "settings": {
-            "title": "Address changes",
-            "body": "<p>If you need to change your shipping address, email <a href=\"mailto:support@p-nice.com\">support@p-nice.com</a> within 1 hour of placing your order. Once a package ships we can't redirect it, but you may be able to update delivery instructions directly with the carrier using the link in your tracking email.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "info_block_HJ9txe",
-        "info_block_h4D8Ke",
-        "info_block_B7wq9E",
-        "info_block_wFqaep",
-        "info_block_3yj6k7",
-        "info_block_hkPkGQ"
-      ],
-      "name": "P-nice Shipping Info",
-      "settings": {
-        "eyebrow": "Customer Info",
-        "heading": "Shipping &amp; Delivery",
-        "intro": "Everything you need to know about how we ship your P-nice order — rates, delivery times, tracking, and what to do if something goes wrong.",
-        "color_scheme": ""
-      }
-    },
-    "footer_m9NzUG": {
+    "footer_kkFYzy": {
       "type": "footer",
       "blocks": {
-        "group_H6VpwJ": {
+        "logo_a36feR": {
+          "type": "logo",
+          "name": "t:names.logo",
+          "settings": {
+            "inverse": false,
+            "font": "heading",
+            "unit": "pixel",
+            "percent_width": 100,
+            "pixel_height": 48,
+            "custom_mobile_size": false,
+            "unit_mobile": "percent",
+            "percent_width_mobile": 100,
+            "pixel_height_mobile": 120,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "group_ar9pEM": {
           "type": "group",
           "settings": {
             "content_direction": "column",
@@ -115,14 +73,14 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "text_LWt8Pz": {
+            "text_bQ8Qzt": {
               "type": "text",
               "settings": {
                 "text": "<h2>Join our email list</h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "h4",
+                "type_preset": "h3",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",
@@ -140,7 +98,7 @@
               },
               "blocks": {}
             },
-            "text_f9CFLH": {
+            "text_4JnAKY": {
               "type": "text",
               "settings": {
                 "text": "<p>Get exclusive deals and early access to new products.</p>",
@@ -167,11 +125,11 @@
             }
           },
           "block_order": [
-            "text_LWt8Pz",
-            "text_f9CFLH"
+            "text_bQ8Qzt",
+            "text_4JnAKY"
           ]
         },
-        "email_signup_crihX7": {
+        "email_signup_nq6cMg": {
           "type": "email-signup",
           "settings": {
             "width": "fill",
@@ -184,11 +142,24 @@
             "border_width": 1,
             "border_radius": 100,
             "input_type_preset": "paragraph",
-            "style_class": "button-unstyled",
-            "display_type": "arrow",
+            "style_class": "button",
+            "display_type": "text",
             "label": "Sign up",
-            "integrated_button": true,
+            "integrated_button": false,
             "button_type_preset": "paragraph",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "payment_icons_4pYqwN": {
+          "type": "payment-icons",
+          "name": "t:names.payment_icons",
+          "settings": {
+            "horizontal_alignment": "flex-start",
+            "gap": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -198,16 +169,18 @@
         }
       },
       "block_order": [
-        "group_H6VpwJ",
-        "email_signup_crihX7"
+        "logo_a36feR",
+        "group_ar9pEM",
+        "email_signup_nq6cMg",
+        "payment_icons_4pYqwN"
       ],
       "name": "t:names.footer",
       "settings": {
         "section_width": "page-width",
         "gap": 20,
         "color_scheme": "scheme-1",
-        "padding-block-start": 30,
-        "padding-block-end": 30
+        "padding-block-start": 36,
+        "padding-block-end": 36
       }
     },
     "footer_utilities_jLGE8U": {
@@ -257,8 +230,7 @@
     }
   },
   "order": [
-    "pnice_shipping_info_JmChKN",
-    "footer_m9NzUG",
+    "footer_kkFYzy",
     "footer_utilities_jLGE8U"
   ]
 }
