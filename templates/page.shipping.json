@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "shipping": {
+      "type": "pnice-shipping-info",
+      "blocks": {
+        "b1": { "type": "info_block", "settings": {
+          "title": "Order processing",
+          "body": "<p>Orders placed Monday through Friday before 12 pm ET ship the same business day. Orders placed after 12 pm ET, on weekends, or on US holidays ship the next business day. You'll get an email with tracking as soon as your label is created.</p>"
+        }},
+        "b2": { "type": "info_block", "settings": {
+          "title": "Tracking your order",
+          "body": "<p>Every order includes a tracking link in your shipping confirmation email. If you don't see it in your inbox within 2 business days of ordering, check your spam folder, then email us at <a href=\"mailto:support@p-nice.com\">support@p-nice.com</a> — we'll re-send your tracking right away.</p>"
+        }},
+        "b3": { "type": "info_block", "settings": {
+          "title": "International shipping",
+          "body": "<p>We currently ship within the United States only, including Alaska, Hawaii, and Puerto Rico. We're working on expanding internationally — join our email list to be notified when we ship to your country.</p>"
+        }},
+        "b4": { "type": "info_block", "settings": {
+          "title": "Lost or damaged packages",
+          "body": "<p>If your package arrives damaged, take a photo of the box and contents and email <a href=\"mailto:support@p-nice.com\">support@p-nice.com</a> within 7 days of delivery. We'll send a replacement at no cost. If your package is marked delivered but missing, please wait 48 hours (carriers occasionally update status early), then contact us — we'll work with the carrier on your behalf and make it right.</p>"
+        }},
+        "b5": { "type": "info_block", "settings": {
+          "title": "Returns &amp; refunds",
+          "body": "<p>P-nice offers a 30-day satisfaction guarantee. If you're not happy with your purchase, see our <a href=\"/policies/refund-policy\">Refund Policy</a> or email <a href=\"mailto:support@p-nice.com\">support@p-nice.com</a> and we'll make it right.</p>"
+        }},
+        "b6": { "type": "info_block", "settings": {
+          "title": "Address changes",
+          "body": "<p>If you need to change your shipping address, email <a href=\"mailto:support@p-nice.com\">support@p-nice.com</a> within 1 hour of placing your order. Once a package ships we can't redirect it, but you may be able to update delivery instructions directly with the carrier using the link in your tracking email.</p>"
+        }}
+      },
+      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6"],
+      "settings": {
+        "eyebrow": "Customer Info",
+        "heading": "Shipping &amp; Delivery",
+        "intro": "Everything you need to know about how we ship your P-nice order — rates, delivery times, tracking, and what to do if something goes wrong.",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "policy_bar": {
+      "type": "pnice-policy-bar",
+      "settings": {
+        "heading": "Customer Info",
+        "show_faq": true,
+        "show_accessibility": false,
+        "color_scheme": "scheme-1"
+      }
+    }
+  },
+  "order": ["shipping", "policy_bar"]
+}

@@ -1,7 +1,7 @@
 {%- comment -%} P-nice luxury skincare hero {%- endcomment -%}
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
-<section class="pnice-hero color-{{ section.settings.color_scheme }}" style="--pnice-hero-bg-start: {{ section.settings.bg_start }}; --pnice-hero-bg-end: {{ section.settings.bg_end }};">
+<section id="hero" class="pnice-hero color-{{ section.settings.color_scheme }}" style="--pnice-hero-bg-start: {{ section.settings.bg_start }}; --pnice-hero-bg-end: {{ section.settings.bg_end }};">
   <div class="pnice-hero__wrap pnice-wrap">
     <div class="pnice-hero__copy">
       {%- if section.settings.eyebrow != blank -%}

@@ -1,7 +1,7 @@
 {%- comment -%} P-nice reassurance bar (shipping / returns / secure) {%- endcomment -%}
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
-<section class="pnice-reassure color-{{ section.settings.color_scheme }}">
+<section id="reassurance" class="pnice-reassure color-{{ section.settings.color_scheme }}">
   <div class="pnice-reassure__wrap pnice-wrap">
     {%- for block in section.blocks -%}
       <div class="pnice-reassure__item" {{ block.shopify_attributes }}>

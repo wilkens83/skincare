@@ -1,7 +1,7 @@
 {%- comment -%} P-nice loyalty / rewards section {%- endcomment -%}
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
-<section class="pnice-sec pnice-loyalty color-{{ section.settings.color_scheme }}">
+<section id="rewards" class="pnice-sec pnice-loyalty color-{{ section.settings.color_scheme }}">
   <div class="pnice-wrap pnice-loyalty__wrap">
     <div class="pnice-loy-card">
       <div class="pnice-loy-card__ring" aria-hidden="true"></div>
@@ -15,8 +15,8 @@
       {%- if section.settings.body != blank -%}
         <p class="pnice-loy-card__body">{{ section.settings.body }}</p>
       {%- endif -%}
-      {%- if section.settings.cta_label != blank -%}
-        <a href="{{ section.settings.cta_link | default: '#' }}" class="pnice-btn pnice-btn--cream">
+      {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+        <a href="{{ section.settings.cta_link }}" class="pnice-btn pnice-btn--cream">
           {{ section.settings.cta_label }}
         </a>
       {%- endif -%}

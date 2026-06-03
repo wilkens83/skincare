@@ -92,7 +92,7 @@
         "primary_label": "Shop Now",
         "primary_link": "shopify://collections/all",
         "secondary_label": "Explore Ingredients",
-        "secondary_link": "#pnice_formula",
+        "secondary_link": "#formula",
         "show_stamp": true,
         "stamp_brand": "P-nice",
         "stamp_text": "since 2026",
@@ -228,7 +228,7 @@
         "heading": "Good choices deserve rewards.",
         "body": "Join free and earn on every order — plus members-only gifts, early access, and birthday treats.",
         "cta_label": "Join the Club",
-        "cta_link": "",
+        "cta_link": "/account/register",
         "color_scheme": "scheme-1"
       }
     },
