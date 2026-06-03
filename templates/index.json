@@ -398,15 +398,6 @@
         "color_scheme": "scheme-1"
       }
     },
-    "pnice_policy_bar": {
-      "type": "pnice-policy-bar",
-      "settings": {
-        "heading": "Customer Info",
-        "show_faq": true,
-        "show_accessibility": false,
-        "color_scheme": "scheme-1"
-      }
-    },
     "pnice_newsletter": {
       "type": "pnice-newsletter",
       "settings": {
@@ -416,6 +407,15 @@
         "placeholder": "Enter your email",
         "button_label": "Subscribe",
         "success_message": "Welcome to the P-nice circle ✓",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "pnice_policy_bar": {
+      "type": "pnice-policy-bar",
+      "settings": {
+        "heading": "Customer Info",
+        "show_faq": true,
+        "show_accessibility": true,
         "color_scheme": "scheme-1"
       }
     }
