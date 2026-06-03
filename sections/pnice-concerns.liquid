@@ -1,0 +1,188 @@
+{%- comment -%}
+  P-nice "Shop by Concern" grid.
+
+  Six (configurable) concern tiles that link to filtered collections
+  or products. Tiles are text-led with a small icon — they don't need
+  imagery, which is great for new brands without a deep photo library.
+{%- endcomment -%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<section id="concerns" class="pnice-sec pnice-concerns color-{{ section.settings.color_scheme }}">
+  <div class="pnice-wrap">
+    <div class="pnice-sec__head">
+      <div class="pnice-sec__t">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="pnice-eyebrow">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="pnice-sec__title">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <p class="pnice-sec__sub">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <ul class="pnice-concerns__grid" role="list">
+      {%- for block in section.blocks -%}
+        <li class="pnice-concerns__item" {{ block.shopify_attributes }}>
+          <a href="{{ block.settings.link | default: '#' }}" class="pnice-concerns__link">
+            <span class="pnice-concerns__icon" aria-hidden="true">
+              {%- case block.settings.icon -%}
+                {%- when 'drop' -%}
+                  <svg viewBox="0 0 24 24"><path d="M12 3c4 5 7 8 7 12a7 7 0 0 1-14 0c0-4 3-7 7-12Z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+                {%- when 'sun' -%}
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.5 4.5l2 2M17.5 17.5l2 2M4.5 19.5l2-2M17.5 6.5l2-2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                {%- when 'spark' -%}
+                  <svg viewBox="0 0 24 24"><path d="m12 3 1.6 5.4L19 10l-5.4 1.6L12 17l-1.6-5.4L5 10l5.4-1.6Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                {%- when 'moon' -%}
+                  <svg viewBox="0 0 24 24"><path d="M20 14a8 8 0 1 1-10-10 7 7 0 0 0 10 10Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                {%- when 'leaf' -%}
+                  <svg viewBox="0 0 24 24"><path d="M4 20c0-9 7-16 16-16 0 9-7 16-16 16Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M4 20 16 8" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+                {%- when 'circle' -%}
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+                {%- else -%}
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+              {%- endcase -%}
+            </span>
+            <span class="pnice-concerns__label">{{ block.settings.label }}</span>
+            {%- if block.settings.sublabel != blank -%}
+              <span class="pnice-concerns__sub">{{ block.settings.sublabel }}</span>
+            {%- endif -%}
+            <span class="pnice-concerns__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% stylesheet %}
+  .pnice-concerns { padding-block: clamp(48px, 5vw, 88px); }
+  .pnice-concerns__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 760px) {
+    .pnice-concerns__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 460px) {
+    .pnice-concerns__grid { grid-template-columns: 1fr; }
+  }
+  .pnice-concerns__link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 22px;
+    background: #fff;
+    border: 1px solid var(--pnice-line, #e3dccf);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--color-foreground);
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .pnice-concerns__link:hover {
+    border-color: var(--pnice-sage, #4a6741);
+    transform: translateY(-2px);
+  }
+  .pnice-concerns__icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border: 1px solid var(--pnice-sage, #4a6741);
+    color: var(--pnice-sage, #4a6741);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pnice-concerns__icon svg { width: 18px; height: 18px; }
+  .pnice-concerns__label {
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color-foreground-heading);
+    flex: 1;
+    line-height: 1.1;
+  }
+  .pnice-concerns__sub {
+    display: block;
+    font-family: var(--font-body--family);
+    font-size: 12px;
+    color: var(--color-foreground);
+    opacity: 0.65;
+    margin-top: 4px;
+  }
+  .pnice-concerns__arrow {
+    color: var(--pnice-sage, #4a6741);
+    transition: transform 0.25s ease;
+  }
+  .pnice-concerns__arrow svg { width: 18px; height: 18px; }
+  .pnice-concerns__link:hover .pnice-concerns__arrow { transform: translateX(4px); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "P-nice Shop by Concern",
+  "tag": "section",
+  "class": "section-wrapper pnice-concerns-wrapper",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "concern",
+      "name": "Concern",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "drop", "label": "Drop (hydration)" },
+            { "value": "sun", "label": "Sun (dark spots)" },
+            { "value": "spark", "label": "Spark (glow)" },
+            { "value": "moon", "label": "Moon (overnight)" },
+            { "value": "leaf", "label": "Leaf (sensitive)" },
+            { "value": "circle", "label": "Circle (texture)" }
+          ],
+          "default": "drop"
+        },
+        { "type": "text", "id": "label", "label": "Label", "default": "Hydration" },
+        { "type": "text", "id": "sublabel", "label": "Sub-label" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Targeted care" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by concern" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Find the right ritual for what your skin needs tonight." },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "P-nice Shop by Concern",
+      "category": "P-nice",
+      "blocks": [
+        { "type": "concern", "settings": { "icon": "drop", "label": "Hydration", "sublabel": "Plumper, comfortable skin" } },
+        { "type": "concern", "settings": { "icon": "moon", "label": "Overnight repair", "sublabel": "Wake up refreshed" } },
+        { "type": "concern", "settings": { "icon": "spark", "label": "Visible firmness", "sublabel": "Smoother-looking texture" } },
+        { "type": "concern", "settings": { "icon": "sun", "label": "Even tone", "sublabel": "A more luminous complexion" } },
+        { "type": "concern", "settings": { "icon": "leaf", "label": "Sensitive skin", "sublabel": "Gentle, fragrance-free care" } },
+        { "type": "concern", "settings": { "icon": "circle", "label": "First-time retinol", "sublabel": "A softer way to start" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

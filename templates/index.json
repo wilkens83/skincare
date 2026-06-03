@@ -398,6 +398,95 @@
         "color_scheme": "scheme-1"
       }
     },
+    "pnice_press": {
+      "type": "pnice-press",
+      "blocks": {
+        "pr1": { "type": "logo", "settings": { "name": "Vogue" } },
+        "pr2": { "type": "logo", "settings": { "name": "Allure" } },
+        "pr3": { "type": "logo", "settings": { "name": "Byrdie" } },
+        "pr4": { "type": "logo", "settings": { "name": "Harper's Bazaar" } },
+        "pr5": { "type": "logo", "settings": { "name": "InStyle" } }
+      },
+      "block_order": ["pr1", "pr2", "pr3", "pr4", "pr5"],
+      "settings": {
+        "heading": "As Seen In",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "pnice_concerns": {
+      "type": "pnice-concerns",
+      "blocks": {
+        "cn1": { "type": "concern", "settings": { "icon": "drop", "label": "Hydration", "sublabel": "Plumper, comfortable skin", "link": "shopify://products/sleep-plus-collagen-cream" } },
+        "cn2": { "type": "concern", "settings": { "icon": "moon", "label": "Overnight repair", "sublabel": "Wake up refreshed", "link": "shopify://collections/night-skincare" } },
+        "cn3": { "type": "concern", "settings": { "icon": "spark", "label": "Visible firmness", "sublabel": "Smoother-looking texture", "link": "shopify://products/retinol-peptide-face-serum" } },
+        "cn4": { "type": "concern", "settings": { "icon": "sun", "label": "Even tone", "sublabel": "A more luminous complexion", "link": "shopify://products/retinol-peptide-face-serum" } },
+        "cn5": { "type": "concern", "settings": { "icon": "leaf", "label": "Sensitive skin", "sublabel": "Gentle, fragrance-free care", "link": "shopify://collections/all" } },
+        "cn6": { "type": "concern", "settings": { "icon": "circle", "label": "First-time retinol", "sublabel": "A softer way to start", "link": "shopify://products/retinol-peptide-face-serum" } }
+      },
+      "block_order": ["cn1", "cn2", "cn3", "cn4", "cn5", "cn6"],
+      "settings": {
+        "eyebrow": "Targeted care",
+        "heading": "Shop by concern",
+        "subheading": "Find the right ritual for what your skin needs tonight.",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "pnice_promise": {
+      "type": "pnice-promise",
+      "blocks": {
+        "pl1": { "type": "pledge", "settings": { "text": "Cruelty-free, always" } },
+        "pl2": { "type": "pledge", "settings": { "text": "Formulated in the USA" } },
+        "pl3": { "type": "pledge", "settings": { "text": "Third-party batch tested" } },
+        "pl4": { "type": "pledge", "settings": { "text": "Recyclable packaging" } }
+      },
+      "block_order": ["pl1", "pl2", "pl3", "pl4"],
+      "settings": {
+        "eyebrow": "Our Promise",
+        "heading": "Skincare you can trust, on every line of the label.",
+        "body": "<p>P-nice was founded on a simple idea: skincare should be honest. We won't put anything in our formulas we wouldn't use on our own skin, and we won't claim anything our ingredients can't deliver.</p><p>Every batch is formulated and bottled in the United States, third-party tested, and shipped from our team in Grand Rapids — not a distant warehouse you'll never hear from.</p>",
+        "signature": "— The P-nice team",
+        "cta_label": "Read our story",
+        "cta_link": "/pages/about",
+        "fallback_asset": "pnice-cream.jpg",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "pnice_journal": {
+      "type": "pnice-journal",
+      "blocks": {
+        "ar1": { "type": "article", "settings": {
+          "tag": "Ingredient Science",
+          "title": "How to introduce retinol without irritating sensitive skin",
+          "excerpt": "A gentle, sustainable approach for first-time retinol users — patch tests, frequency, and the soothing ingredients that help.",
+          "meta": "May 12, 2026 · 5 min read",
+          "link": "/blogs/journal/introducing-retinol"
+        }},
+        "ar2": { "type": "article", "settings": {
+          "tag": "Routine",
+          "title": "Building an evening routine that actually sticks",
+          "excerpt": "Three steps, ten minutes, every night. The minimalist PM routine our community keeps coming back to.",
+          "meta": "April 28, 2026 · 4 min read",
+          "link": "/blogs/journal/evening-routine"
+        }},
+        "ar3": { "type": "article", "settings": {
+          "tag": "Ingredient Science",
+          "title": "What melatonin really does in your skincare",
+          "excerpt": "Beyond the sleep hormone reputation — how melatonin supports the skin's natural overnight rhythm.",
+          "meta": "April 14, 2026 · 6 min read",
+          "link": "/blogs/journal/melatonin-in-skincare"
+        }}
+      },
+      "block_order": ["ar1", "ar2", "ar3"],
+      "settings": {
+        "eyebrow": "The Journal",
+        "heading": "Notes on the ritual",
+        "subheading": "Honest skincare writing — ingredients, application, the science behind a calmer routine.",
+        "viewall_label": "Read the Journal",
+        "viewall_link": "/blogs/journal",
+        "blog": "journal",
+        "color_scheme": "scheme-1"
+      }
+    },
     "pnice_newsletter": {
       "type": "pnice-newsletter",
       "settings": {
@@ -424,11 +513,15 @@
     "pnice_announcement",
     "pnice_hero",
     "pnice_reassurance",
+    "pnice_press",
     "pnice_categories",
+    "pnice_concerns",
     "pnice_loyalty",
     "pnice_bestsellers",
     "pnice_formula",
+    "pnice_promise",
     "pnice_reviews",
+    "pnice_journal",
     "pnice_newsletter",
     "pnice_policy_bar"
   ]

@@ -53,6 +53,62 @@
     box-sizing: border-box;
   }
 
+  /* Cross-site polish */
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .pnice-hero-wrapper *,
+    .pnice-categories-wrapper *,
+    .pnice-loyalty-wrapper *,
+    .pnice-bestsellers-wrapper *,
+    .pnice-formula-wrapper *,
+    .pnice-reviews-wrapper *,
+    .pnice-news-wrapper *,
+    .pnice-reassure-wrapper *,
+    .pnice-announce-wrapper *,
+    .pnice-press-wrapper *,
+    .pnice-concerns-wrapper *,
+    .pnice-journal-wrapper *,
+    .pnice-promise-wrapper *,
+    .pnice-pdp-wrapper * {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+  :is(
+    .pnice-hero-wrapper,
+    .pnice-categories-wrapper,
+    .pnice-loyalty-wrapper,
+    .pnice-bestsellers-wrapper,
+    .pnice-formula-wrapper,
+    .pnice-reviews-wrapper,
+    .pnice-news-wrapper,
+    .pnice-press-wrapper,
+    .pnice-concerns-wrapper,
+    .pnice-journal-wrapper,
+    .pnice-promise-wrapper,
+    .pnice-pdp-wrapper
+  ) a:focus-visible,
+  :is(
+    .pnice-hero-wrapper,
+    .pnice-categories-wrapper,
+    .pnice-loyalty-wrapper,
+    .pnice-bestsellers-wrapper,
+    .pnice-formula-wrapper,
+    .pnice-reviews-wrapper,
+    .pnice-news-wrapper,
+    .pnice-press-wrapper,
+    .pnice-concerns-wrapper,
+    .pnice-journal-wrapper,
+    .pnice-promise-wrapper,
+    .pnice-pdp-wrapper
+  ) button:focus-visible {
+    outline: 2px solid var(--pnice-sage, #4a6741);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
   .pnice-hero__title,
   .pnice-sec__title,
   .pnice-loy-card__title,

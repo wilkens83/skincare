@@ -1,0 +1,248 @@
+{%- comment -%}
+  P-nice Journal / Editorial section.
+
+  Renders 3–4 article cards. Can either render a connected
+  Shopify Blog (section.settings.blog) — pulling real articles —
+  or fall back to manually-curated card blocks for new shops
+  without a published blog yet.
+{%- endcomment -%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<section id="journal" class="pnice-sec pnice-journal color-{{ section.settings.color_scheme }}">
+  <div class="pnice-wrap">
+    <div class="pnice-sec__head">
+      <div class="pnice-sec__t">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="pnice-eyebrow">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="pnice-sec__title">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <p class="pnice-sec__sub">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.viewall_label != blank -%}
+        <a href="{{ section.settings.viewall_link | default: '/blogs/journal' }}" class="pnice-viewall">
+          {{ section.settings.viewall_label }}
+          <svg class="pnice-ic" style="width:15px;height:15px;" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="pnice-journal__grid">
+      {%- assign linked_blog = blogs[section.settings.blog] -%}
+      {%- if linked_blog and linked_blog.articles.size > 0 -%}
+        {%- for article in linked_blog.articles limit: 3 -%}
+          <article class="pnice-journal__card">
+            <a href="{{ article.url }}" class="pnice-journal__media">
+              {%- if article.image -%}
+                {{ article.image | image_url: width: 800 | image_tag:
+                  widths: '300, 500, 800',
+                  sizes: '(min-width: 880px) 33vw, 90vw',
+                  loading: 'lazy',
+                  alt: article.image.alt | default: article.title
+                }}
+              {%- else -%}
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </a>
+            <div class="pnice-journal__body">
+              {%- if article.tags.size > 0 -%}
+                <span class="pnice-journal__tag">{{ article.tags | first }}</span>
+              {%- endif -%}
+              <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+              <p class="pnice-journal__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 18 }}</p>
+              <p class="pnice-journal__meta">{{ article.published_at | date: '%B %-d, %Y' }} · {{ article.reading_time | default: 4 }} min read</p>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          <article class="pnice-journal__card" {{ block.shopify_attributes }}>
+            <a href="{{ block.settings.link | default: '#' }}" class="pnice-journal__media">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 800 | image_tag:
+                  widths: '300, 500, 800',
+                  sizes: '(min-width: 880px) 33vw, 90vw',
+                  loading: 'lazy',
+                  alt: block.settings.title
+                }}
+              {%- else -%}
+                <div class="pnice-journal__placeholder" style="--seed:{{ forloop.index }};">
+                  <span>{{ block.settings.tag | default: 'Journal' }}</span>
+                </div>
+              {%- endif -%}
+            </a>
+            <div class="pnice-journal__body">
+              {%- if block.settings.tag != blank -%}
+                <span class="pnice-journal__tag">{{ block.settings.tag }}</span>
+              {%- endif -%}
+              <h3><a href="{{ block.settings.link | default: '#' }}">{{ block.settings.title }}</a></h3>
+              {%- if block.settings.excerpt != blank -%}
+                <p class="pnice-journal__excerpt">{{ block.settings.excerpt }}</p>
+              {%- endif -%}
+              {%- if block.settings.meta != blank -%}
+                <p class="pnice-journal__meta">{{ block.settings.meta }}</p>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .pnice-journal { background: var(--pnice-paper, #faf7f1); }
+  .pnice-journal__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+  }
+  @media (max-width: 880px) {
+    .pnice-journal__grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  }
+  .pnice-journal__card {
+    background: #fff;
+    border: 1px solid var(--pnice-line, #e3dccf);
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .pnice-journal__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 40px -28px rgba(70, 60, 40, 0.35);
+  }
+  .pnice-journal__media {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--pnice-cream-deep, #ece3d7);
+    display: block;
+  }
+  .pnice-journal__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+  .pnice-journal__card:hover .pnice-journal__media img { transform: scale(1.05); }
+  .pnice-journal__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding: 26px;
+    background:
+      radial-gradient(at calc(20% * var(--seed,1)) 20%, rgba(176, 137, 63, 0.18), transparent 60%),
+      linear-gradient(135deg, var(--pnice-cream, #f5f0ea), var(--pnice-cream-deep, #ece3d7));
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-style: italic;
+    font-size: 32px;
+    color: var(--pnice-sage-deep, #3a4d33);
+  }
+  .pnice-journal__body { padding: 22px 24px 26px; font-family: var(--font-body--family); display: flex; flex-direction: column; flex: 1; }
+  .pnice-journal__tag {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pnice-gold, #b0893f);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .pnice-journal__card h3 {
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    color: var(--color-foreground-heading);
+  }
+  .pnice-journal__card h3 a { color: inherit; text-decoration: none; }
+  .pnice-journal__card h3 a:hover { color: var(--pnice-sage, #4a6741); }
+  .pnice-journal__excerpt {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-foreground);
+    opacity: 0.78;
+    margin-bottom: 14px;
+    flex: 1;
+  }
+  .pnice-journal__meta {
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--color-foreground);
+    opacity: 0.62;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "P-nice Journal",
+  "tag": "section",
+  "class": "section-wrapper pnice-journal-wrapper",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "article",
+      "name": "Article card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "tag", "label": "Tag", "default": "Ingredient Science" },
+        { "type": "text", "id": "title", "label": "Title", "default": "How to introduce retinol without irritating sensitive skin" },
+        { "type": "textarea", "id": "excerpt", "label": "Excerpt", "default": "A gentle, sustainable approach for first-time retinol users — patch tests, frequency, and the soothing ingredients that help." },
+        { "type": "text", "id": "meta", "label": "Meta", "default": "May 12, 2026 · 5 min read" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Journal" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Notes on the ritual" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Honest skincare writing — ingredients, application, the science behind a calmer routine." },
+    { "type": "text", "id": "viewall_label", "label": "View all label", "default": "Read the Journal" },
+    { "type": "url", "id": "viewall_link", "label": "View all link", "default": "/blogs/journal" },
+    {
+      "type": "text",
+      "id": "blog",
+      "label": "Shopify blog handle (optional — overrides cards)",
+      "info": "If you publish a Shopify blog and put its handle here (e.g. \"journal\"), the section will render real articles."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "P-nice Journal",
+      "category": "P-nice",
+      "blocks": [
+        { "type": "article", "settings": {
+          "tag": "Ingredient Science",
+          "title": "How to introduce retinol without irritating sensitive skin",
+          "excerpt": "A gentle, sustainable approach for first-time retinol users — patch tests, frequency, and the soothing ingredients that help.",
+          "meta": "May 12, 2026 · 5 min read"
+        }},
+        { "type": "article", "settings": {
+          "tag": "Routine",
+          "title": "Building an evening routine that actually sticks",
+          "excerpt": "Three steps, ten minutes, every night. The minimalist PM routine our community keeps coming back to.",
+          "meta": "April 28, 2026 · 4 min read"
+        }},
+        { "type": "article", "settings": {
+          "tag": "Ingredient Science",
+          "title": "What melatonin really does in your skincare",
+          "excerpt": "Beyond the sleep hormone reputation — how melatonin supports the skin's natural overnight rhythm.",
+          "meta": "April 14, 2026 · 6 min read"
+        }}
+      ]
+    }
+  ]
+}
+{% endschema %}
