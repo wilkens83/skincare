@@ -12,6 +12,38 @@
   Settings → Policies and the URLs become live.
 {%- endcomment -%}
 
+{%- comment -%}
+  Resolve each policy link. Shopify's shop.<policy>.url ALWAYS returns
+  a path, even when the policy body is empty — and that path 404s.
+  So we check shop.<policy>.body, and if it's blank we fall back to a
+  /pages/* URL served from the theme's own page templates.
+{%- endcomment -%}
+{%- liquid
+  if shop.shipping_policy.body != blank
+    assign shipping_url = shop.shipping_policy.url
+  else
+    assign shipping_url = '/pages/shipping'
+  endif
+
+  if shop.refund_policy.body != blank
+    assign refund_url = shop.refund_policy.url
+  else
+    assign refund_url = '/pages/refund-policy'
+  endif
+
+  if shop.privacy_policy.body != blank
+    assign privacy_url = shop.privacy_policy.url
+  else
+    assign privacy_url = '/pages/privacy-policy'
+  endif
+
+  if shop.terms_of_service.body != blank
+    assign terms_url = shop.terms_of_service.url
+  else
+    assign terms_url = '/pages/terms-of-service'
+  endif
+-%}
+
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <section class="pnice-policy-bar color-{{ section.settings.color_scheme }}">
   <div class="pnice-wrap pnice-policy-bar__wrap">
@@ -20,10 +52,10 @@
     {%- endif -%}
     <ul class="pnice-policy-bar__list" role="list">
       <li><a href="{{ pages.contact.url | default: '/pages/contact' }}">Contact</a></li>
-      <li><a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">Shipping</a></li>
-      <li><a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">Returns &amp; Refunds</a></li>
-      <li><a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy</a></li>
-      <li><a href="{{ shop.terms_of_service.url | default: '/policies/terms-of-service' }}">Terms</a></li>
+      <li><a href="{{ shipping_url }}">Shipping</a></li>
+      <li><a href="{{ refund_url }}">Returns &amp; Refunds</a></li>
+      <li><a href="{{ privacy_url }}">Privacy</a></li>
+      <li><a href="{{ terms_url }}">Terms</a></li>
       {%- if section.settings.show_faq -%}
         <li><a href="{{ pages.faq.url | default: '/pages/faq' }}">FAQ</a></li>
       {%- endif -%}
