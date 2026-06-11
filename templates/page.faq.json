@@ -1,0 +1,81 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "faq": {
+      "type": "pnice-faq",
+      "blocks": {
+        "q1": { "type": "qa", "settings": {
+          "question": "How long does shipping take?",
+          "answer": "<p>Standard US shipping arrives in 3–7 business days from our Grand Rapids, Michigan fulfillment center. We process orders Monday–Friday and ship within 1–2 business days of order confirmation. You'll receive a tracking link by email as soon as your order ships.</p>"
+        }},
+        "q2": { "type": "qa", "settings": {
+          "question": "Do you offer free shipping?",
+          "answer": "<p>Yes — standard shipping is free on all US orders over $60. Orders under $60 ship for a flat $5.95.</p>"
+        }},
+        "q3": { "type": "qa", "settings": {
+          "question": "Do you ship internationally?",
+          "answer": "<p>We currently ship within the United States only. We're working on expanding internationally — sign up to our email list to be the first to know.</p>"
+        }},
+        "q4": { "type": "qa", "settings": {
+          "question": "What is your return policy?",
+          "answer": "<p>We offer a 30-day satisfaction guarantee. If you're not happy with your purchase, contact us at <a href=\"mailto:support@p-nice.com\">support@p-nice.com</a> within 30 days of delivery and we'll arrange a full refund or replacement. Products should be at least 50% full; we cover return shipping in the US. See our full <a href=\"/policies/refund-policy\">Refund Policy</a> for details.</p>"
+        }},
+        "q5": { "type": "qa", "settings": {
+          "question": "Are your products vegan and cruelty-free?",
+          "answer": "<p>Yes. All P-nice products are formulated and tested without animal testing of any kind. Our Retinol and Peptide Face Serum is vegan; our Sleep Plus Collagen Cream contains marine-sourced collagen and is not vegan. Full ingredient lists are on every product page.</p>"
+        }},
+        "q6": { "type": "qa", "settings": {
+          "question": "Where are your products made?",
+          "answer": "<p>All P-nice products are formulated and manufactured in the United States. Final fulfillment is from our Grand Rapids, Michigan warehouse.</p>"
+        }},
+        "q7": { "type": "qa", "settings": {
+          "question": "Can I use retinol if I have sensitive skin?",
+          "answer": "<p>Our Retinol and Peptide Face Serum is formulated with bisabolol and phospholipids to be gentler than many retinol products, but everyone's skin is different. We recommend a patch test on your inner forearm 24 hours before first use, and starting with 2–3 nights per week. If irritation occurs, discontinue use. Pregnant or nursing? Please consult a healthcare professional before use.</p>"
+        }},
+        "q8": { "type": "qa", "settings": {
+          "question": "When should I apply each product?",
+          "answer": "<p>Both products are designed for evening use as part of your PM routine. After cleansing: apply Retinol and Peptide Face Serum first, wait 1–2 minutes, then layer Sleep Plus Collagen Cream on top. Use a broad-spectrum SPF every morning.</p>"
+        }},
+        "q9": { "type": "qa", "settings": {
+          "question": "How do I store my products?",
+          "answer": "<p>Store in a cool, dry place away from direct sunlight. Both products are shelf-stable for 12 months after opening. Refrigeration is not required.</p>"
+        }},
+        "q10": { "type": "qa", "settings": {
+          "question": "What payment methods do you accept?",
+          "answer": "<p>We accept all major credit and debit cards (Visa, Mastercard, American Express, Discover), Apple Pay, Google Pay, and Shop Pay. All payments are processed securely through Stripe and Shopify Payments.</p>"
+        }},
+        "q11": { "type": "qa", "settings": {
+          "question": "How do I contact customer support?",
+          "answer": "<p>Email us at <a href=\"mailto:support@p-nice.com\">support@p-nice.com</a> or call <a href=\"tel:+16165201895\">616-520-1895</a> (Mon–Fri, 9 am–5 pm ET). We aim to respond to all emails within one business day.</p>"
+        }}
+      },
+      "block_order": ["q1","q2","q3","q4","q5","q6","q7","q8","q9","q10","q11"],
+      "settings": {
+        "eyebrow": "Help Center",
+        "heading": "Frequently Asked Questions",
+        "intro": "Everything you need to know about P-nice — shipping, returns, ingredients, and how to make the most of your routine.",
+        "open_first": true,
+        "show_contact_card": true,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "policy_bar": {
+      "type": "pnice-policy-bar",
+      "settings": {
+        "heading": "Customer Info",
+        "show_faq": false,
+        "show_accessibility": false,
+        "color_scheme": "scheme-1"
+      }
+    }
+  },
+  "order": ["faq", "policy_bar"]
+}

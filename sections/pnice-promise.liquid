@@ -1,0 +1,209 @@
+{%- comment -%}
+  P-nice Brand Promise / Founder Story section.
+
+  A wide editorial band with a left-side image / portrait
+  and a right-side promise statement, signature, and CTA.
+  Adds the kind of emotional, story-led depth premium beauty
+  brands rely on for differentiation.
+{%- endcomment -%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<section id="promise" class="pnice-promise color-{{ section.settings.color_scheme }}">
+  <div class="pnice-wrap pnice-promise__wrap">
+    <div class="pnice-promise__art">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1000 | image_tag:
+          widths: '400, 700, 1000',
+          sizes: '(min-width: 880px) 45vw, 100vw',
+          loading: 'lazy',
+          alt: section.settings.heading
+        }}
+      {%- elsif section.settings.fallback_asset != blank -%}
+        <img src="{{ section.settings.fallback_asset | asset_url }}" alt="{{ section.settings.heading }}" loading="lazy" width="1000" height="1200">
+      {%- else -%}
+        <div class="pnice-promise__placeholder">
+          <span>{{ section.settings.eyebrow | default: 'Our Promise' }}</span>
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="pnice-promise__copy">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="pnice-eyebrow pnice-eyebrow--gold">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pnice-promise__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.body != blank -%}
+        <div class="pnice-promise__body rte">{{ section.settings.body }}</div>
+      {%- endif -%}
+      {%- if section.settings.signature != blank -%}
+        <p class="pnice-promise__signature">{{ section.settings.signature }}</p>
+      {%- endif -%}
+      {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+        <a href="{{ section.settings.cta_link }}" class="pnice-promise__cta">
+          {{ section.settings.cta_label }}
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      {%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        <ul class="pnice-promise__pledges" role="list">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>{{ block.settings.text }}</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .pnice-promise {
+    font-family: var(--font-body--family);
+    padding-block: clamp(48px, 6vw, 96px);
+  }
+  .pnice-promise__wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  @media (min-width: 880px) {
+    .pnice-promise__wrap {
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 60px;
+    }
+  }
+  .pnice-promise__art {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--pnice-cream-deep, #ece3d7);
+  }
+  .pnice-promise__art img,
+  .pnice-promise__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pnice-promise__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(at 30% 30%, rgba(176, 137, 63, 0.18), transparent 55%),
+      linear-gradient(135deg, var(--pnice-cream, #f5f0ea), var(--pnice-cream-deep, #ece3d7));
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-style: italic;
+    font-size: 32px;
+    color: var(--pnice-sage-deep, #3a4d33);
+  }
+  .pnice-promise__title {
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--color-foreground-heading);
+    margin: 14px 0 18px;
+  }
+  .pnice-promise__body {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--color-foreground);
+    opacity: 0.85;
+  }
+  .pnice-promise__body p { margin-bottom: 12px; }
+  .pnice-promise__signature {
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--pnice-sage, #4a6741);
+    margin: 20px 0 14px;
+  }
+  .pnice-promise__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pnice-sage, #4a6741);
+    padding: 6px 0;
+    border-bottom: 1px solid currentColor;
+    text-decoration: none;
+    margin-top: 6px;
+    transition: gap 0.25s ease;
+  }
+  .pnice-promise__cta:hover { gap: 14px; }
+  .pnice-promise__cta svg { width: 16px; height: 16px; }
+  .pnice-promise__pledges {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (max-width: 540px) {
+    .pnice-promise__pledges { grid-template-columns: 1fr; }
+  }
+  .pnice-promise__pledges li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    color: var(--color-foreground);
+  }
+  .pnice-promise__pledges svg { width: 18px; height: 18px; color: var(--pnice-sage, #4a6741); flex-shrink: 0; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "P-nice Promise",
+  "tag": "section",
+  "class": "section-wrapper pnice-promise-wrapper",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "pledge",
+      "name": "Pledge",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Pledge", "default": "Cruelty-free, always" }
+      ]
+    }
+  ],
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our Promise" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Skincare you can trust, on every line of the label." },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>P-nice was founded on a simple idea: skincare should be honest. We won't put anything in our formulas we wouldn't use on our own skin, and we won't claim anything our ingredients can't deliver.</p><p>Every batch is formulated and bottled in the United States and shipped from our team in Grand Rapids — not a distant warehouse you'll never hear from.</p>" },
+    { "type": "text", "id": "signature", "label": "Signature", "default": "— The P-nice team" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Read our story" },
+    { "type": "url", "id": "cta_link", "label": "CTA link", "default": "/pages/about" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "fallback_asset", "label": "Fallback asset filename (e.g. pnice-cream.jpg)" },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "P-nice Promise",
+      "category": "P-nice",
+      "blocks": [
+        { "type": "pledge", "settings": { "text": "Cruelty-free, always" } },
+        { "type": "pledge", "settings": { "text": "Formulated in the United States" } },
+        { "type": "pledge", "settings": { "text": "Made in small batches" } },
+        { "type": "pledge", "settings": { "text": "Founded in Grand Rapids, MI" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

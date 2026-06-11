@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding-block-start": 60,
+        "padding-block-end": 60
+      }
+    },
+    "policy_bar": {
+      "type": "pnice-policy-bar",
+      "settings": {
+        "heading": "Customer Info",
+        "show_faq": true,
+        "show_accessibility": false,
+        "color_scheme": "scheme-1"
+      }
+    }
+  },
+  "order": ["main", "policy_bar"]
+}

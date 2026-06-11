@@ -1,0 +1,92 @@
+{%- comment -%}
+  P-nice SEO metadata helpers.
+
+  - Homepage fallback meta description + title when merchant hasn't set them in
+    Online Store > Preferences.
+  - Organization + WebSite + ItemList JSON-LD for the homepage so search engines
+    and payment processors (Stripe) pick up brand info, postal address,
+    phone, support email, and social URLs.
+
+  Source: shopify_seo_metadata_pnice.md (handoff bundle) +
+  business details supplied directly by the merchant.
+{%- endcomment -%}
+
+{%- assign brand_name = 'P-nice' -%}
+{%- assign brand_tagline = 'Collagen Skincare & Beauty Wellness Essentials' -%}
+{%- assign brand_description = 'Discover P-nice skincare and wellness essentials designed to support natural beauty, hydration, smoother-looking skin, and simple daily self-care rituals.' -%}
+{%- assign brand_email = 'support@p-nice.com' -%}
+{%- assign brand_phone = '+1-616-520-1895' -%}
+{%- assign brand_street = '3008 Woodbridge Dr SE' -%}
+{%- assign brand_city = 'Grand Rapids' -%}
+{%- assign brand_region = 'MI' -%}
+{%- assign brand_postal = '' -%}
+{%- assign brand_country = 'US' -%}
+{%- assign brand_url = 'https://p-nice.com' -%}
+
+{%- if request.page_type == 'index' -%}
+  {%- comment -%} Title fallback when admin hasn't set a homepage title {%- endcomment -%}
+  {%- unless page_title contains brand_name or page_title contains shop.name -%}
+    <meta name="pnice:title-fallback" content="{{ brand_name }} | {{ brand_tagline }}">
+  {%- endunless -%}
+
+  {%- comment -%} Description fallback {%- endcomment -%}
+  {%- if page_description == blank -%}
+    <meta name="description" content="{{ brand_description | escape }}">
+  {%- endif -%}
+
+  <meta name="keywords" content="collagen skincare, beauty wellness, P-nice skincare, retinol serum, collagen cream, clean beauty products, skincare routine">
+
+  {%- comment -%} Organization schema with full contact info {%- endcomment -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "{{ brand_name }}",
+      "legalName": "{{ shop.name | default: brand_name }}",
+      "url": "{{ brand_url }}",
+      "email": "{{ brand_email }}",
+      "telephone": "{{ brand_phone }}",
+      {%- if settings.logo != blank -%}
+        "logo": "{{ settings.logo | image_url: width: 600 | prepend: 'https:' }}",
+      {%- else -%}
+        "logo": "{{ 'pnice-logo.jpg' | asset_url | prepend: 'https:' }}",
+      {%- endif -%}
+      "description": "{{ brand_description | escape }}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{ brand_street }}",
+        "addressLocality": "{{ brand_city }}",
+        "addressRegion": "{{ brand_region }}",
+        "addressCountry": "{{ brand_country }}"
+      },
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "{{ brand_email }}",
+        "telephone": "{{ brand_phone }}",
+        "areaServed": "US",
+        "availableLanguage": ["en"]
+      }],
+      "sameAs": [
+        {%- if settings.social_instagram_link != blank -%}"{{ settings.social_instagram_link }}"{%- endif -%}
+        {%- if settings.social_tiktok_link != blank -%}{%- if settings.social_instagram_link != blank -%},{%- endif -%}"{{ settings.social_tiktok_link }}"{%- endif -%}
+        {%- if settings.social_pinterest_link != blank -%}{%- if settings.social_instagram_link != blank or settings.social_tiktok_link != blank -%},{%- endif -%}"{{ settings.social_pinterest_link }}"{%- endif -%}
+      ]
+    }
+  </script>
+
+  {%- comment -%} WebSite schema with SearchAction {%- endcomment -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "{{ brand_name }}",
+      "url": "{{ brand_url }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ brand_url }}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+{%- endif -%}

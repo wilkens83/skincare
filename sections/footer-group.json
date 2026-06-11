@@ -11,10 +11,30 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
-    "footer_m9NzUG": {
+    "footer_kkFYzy": {
       "type": "footer",
       "blocks": {
-        "group_H6VpwJ": {
+        "logo_a36feR": {
+          "type": "logo",
+          "name": "t:names.logo",
+          "settings": {
+            "inverse": false,
+            "font": "heading",
+            "unit": "pixel",
+            "percent_width": 100,
+            "pixel_height": 48,
+            "custom_mobile_size": false,
+            "unit_mobile": "percent",
+            "percent_width_mobile": 100,
+            "pixel_height_mobile": 120,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "group_ar9pEM": {
           "type": "group",
           "settings": {
             "content_direction": "column",
@@ -53,14 +73,14 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "text_LWt8Pz": {
+            "text_bQ8Qzt": {
               "type": "text",
               "settings": {
                 "text": "<h2>Join our email list</h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "h4",
+                "type_preset": "h3",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",
@@ -78,7 +98,7 @@
               },
               "blocks": {}
             },
-            "text_f9CFLH": {
+            "text_4JnAKY": {
               "type": "text",
               "settings": {
                 "text": "<p>Get exclusive deals and early access to new products.</p>",
@@ -105,28 +125,41 @@
             }
           },
           "block_order": [
-            "text_LWt8Pz",
-            "text_f9CFLH"
+            "text_bQ8Qzt",
+            "text_4JnAKY"
           ]
         },
-        "email_signup_crihX7": {
+        "email_signup_nq6cMg": {
           "type": "email-signup",
           "settings": {
             "width": "fill",
             "custom_width": 100,
             "inherit_color_scheme": true,
+            "color_scheme": "",
             "heading": "",
             "heading_preset": "h3",
-            "color_scheme": "",
             "border_style": "all",
             "border_width": 1,
             "border_radius": 100,
             "input_type_preset": "paragraph",
-            "style_class": "button-unstyled",
-            "display_type": "arrow",
+            "style_class": "button",
+            "display_type": "text",
             "label": "Sign up",
-            "integrated_button": true,
+            "integrated_button": false,
             "button_type_preset": "paragraph",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "payment_icons_4pYqwN": {
+          "type": "payment-icons",
+          "name": "t:names.payment_icons",
+          "settings": {
+            "horizontal_alignment": "flex-start",
+            "gap": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -136,30 +169,23 @@
         }
       },
       "block_order": [
-        "group_H6VpwJ",
-        "email_signup_crihX7"
+        "logo_a36feR",
+        "group_ar9pEM",
+        "email_signup_nq6cMg",
+        "payment_icons_4pYqwN"
       ],
       "name": "t:names.footer",
       "settings": {
         "section_width": "page-width",
         "gap": 20,
         "color_scheme": "scheme-1",
-        "padding-block-start": 30,
-        "padding-block-end": 30
+        "padding-block-start": 36,
+        "padding-block-end": 36
       }
     },
     "footer_utilities_jLGE8U": {
       "type": "footer-utilities",
       "blocks": {
-        "footer_copyright_jweRK8": {
-          "type": "footer-copyright",
-          "settings": {
-            "show_powered_by": true,
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        },
         "footer_policy_list_VCdnpa": {
           "type": "footer-policy-list",
           "settings": {
@@ -171,7 +197,7 @@
         "social_links_Ew63Kq": {
           "type": "social-links",
           "settings": {
-            "facebook_url": "https://www.facebook.com/",
+            "facebook_url": "https://www.facebook.com/profile.php?id=61590770481839",
             "instagram_url": "https://www.instagram.com/",
             "youtube_url": "https://www.youtube.com/",
             "tiktok_url": "https://www.tiktok.com/",
@@ -189,7 +215,6 @@
         }
       },
       "block_order": [
-        "footer_copyright_jweRK8",
         "footer_policy_list_VCdnpa",
         "social_links_Ew63Kq"
       ],
@@ -205,7 +230,7 @@
     }
   },
   "order": [
-    "footer_m9NzUG",
+    "footer_kkFYzy",
     "footer_utilities_jLGE8U"
   ]
 }

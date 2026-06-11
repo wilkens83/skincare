@@ -1,0 +1,139 @@
+{%- comment -%}
+  P-nice Product Info Accordion
+  -----------------------------------------------------
+  Renders a list of <details> accordion items pulled from
+  product metafields. Used on the PDP to show Ingredients,
+  How to Use, Warnings, and any other policy/info content
+  Stripe (or a regulator) wants to see plainly on the page.
+
+  Reads in this priority order (first non-blank wins per panel):
+    1. product.metafields.custom.ingredients      (multi-line text)
+    2. product.metafields.custom.how_to_use       (multi-line text)
+    3. product.metafields.custom.warnings         (multi-line text)
+    4. product.metafields.custom.full_ingredients (multi-line text)
+    5. product.metafields.custom.country_of_origin (single line)
+
+  If none are set the snippet falls back to defaults defined in
+  shopify_seo_metadata_pnice.md (handoff bundle) — these are
+  generic enough to ship before the merchant fills metafields,
+  and contain the standard "consult a healthcare professional"
+  warning copy required by most card processors for cosmetics.
+{%- endcomment -%}
+
+{%- liquid
+  assign product_handle = product.handle
+  assign default_ingredients = ''
+  assign default_use = 'Apply a pearl-sized amount to clean, dry skin in the evening. Gently massage in upward motions. Use nightly as part of your PM routine. Pair with a broad-spectrum SPF the next morning.'
+  assign default_warnings = 'For external use only. Avoid contact with eyes; if contact occurs, rinse thoroughly with water. Discontinue use if irritation occurs. Patch test before first use. Keep out of reach of children. Not intended for use on broken or irritated skin. Pregnant or nursing? Consult a healthcare professional before use. Store in a cool, dry place away from direct sunlight.'
+
+  if product_handle contains 'sleep-plus' or product_handle contains 'collagen'
+    assign default_ingredients = 'Collagen, Hyaluronic Acid, Aloe Vera Extract, Avocado Oil, Lavender Oil, Melatonin, Water (Aqua), Glycerin, Squalane, Tocopherol (Vitamin E). Manufactured in the USA. 2 oz / 56 g.'
+  elsif product_handle contains 'retinol' or product_handle contains 'peptide' or product_handle contains 'serum'
+    assign default_ingredients = 'Retinol, Hexapeptide-11, Bisabolol, Phospholipids, Water (Aqua), Glycerin, Niacinamide, Panthenol, Tocopherol (Vitamin E). Manufactured in the USA. 1 fl oz / 30 ml.'
+    assign default_warnings = default_warnings | append: ' Retinol may increase sun sensitivity; use a broad-spectrum SPF daily.'
+  endif
+
+  assign ingredients = product.metafields.custom.ingredients | default: product.metafields.custom.full_ingredients | default: default_ingredients
+  assign how_to_use = product.metafields.custom.how_to_use | default: default_use
+  assign warnings = product.metafields.custom.warnings | default: default_warnings
+  assign country = product.metafields.custom.country_of_origin | default: 'United States of America'
+-%}
+
+<div class="pnice-info-accordion" data-pnice-info-accordion>
+  {%- if ingredients != blank -%}
+    <details class="pnice-info-accordion__item">
+      <summary>
+        <span>Ingredients</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </summary>
+      <div class="pnice-info-accordion__body">
+        <p>{{ ingredients | strip_html | newline_to_br }}</p>
+      </div>
+    </details>
+  {%- endif -%}
+
+  {%- if how_to_use != blank -%}
+    <details class="pnice-info-accordion__item">
+      <summary>
+        <span>How to Use</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </summary>
+      <div class="pnice-info-accordion__body">
+        <p>{{ how_to_use | strip_html | newline_to_br }}</p>
+      </div>
+    </details>
+  {%- endif -%}
+
+  {%- if warnings != blank -%}
+    <details class="pnice-info-accordion__item">
+      <summary>
+        <span>Warnings &amp; Precautions</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </summary>
+      <div class="pnice-info-accordion__body">
+        <p>{{ warnings | strip_html | newline_to_br }}</p>
+      </div>
+    </details>
+  {%- endif -%}
+
+  <details class="pnice-info-accordion__item">
+    <summary>
+      <span>Shipping &amp; Returns</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="pnice-info-accordion__body">
+      <p>Free standard US shipping on orders over $60. 30-day satisfaction guarantee — if you're not happy, return for a full refund. See our <a href="/policies/shipping-policy">Shipping Policy</a> and <a href="/policies/refund-policy">Refund Policy</a> for details.</p>
+    </div>
+  </details>
+
+  <details class="pnice-info-accordion__item">
+    <summary>
+      <span>Origin &amp; Manufacturing</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="pnice-info-accordion__body">
+      <p>Manufactured in {{ country }}. Cosmetic product — not a drug or medical device. For questions about formulation or sourcing, please <a href="/pages/contact">contact us</a>.</p>
+    </div>
+  </details>
+</div>
+
+<style>
+  .pnice-info-accordion {
+    margin: 24px 0;
+    border-top: 1px solid var(--pnice-line, #e3dccf);
+    font-family: var(--font-body--family);
+  }
+  .pnice-info-accordion__item {
+    border-bottom: 1px solid var(--pnice-line, #e3dccf);
+  }
+  .pnice-info-accordion__item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 18px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--color-foreground-heading);
+  }
+  .pnice-info-accordion__item summary::-webkit-details-marker { display: none; }
+  .pnice-info-accordion__item summary svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.25s ease;
+  }
+  .pnice-info-accordion__item[open] summary svg { transform: rotate(180deg); }
+  .pnice-info-accordion__body {
+    padding: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--color-foreground);
+  }
+  .pnice-info-accordion__body p { margin: 0 0 10px; }
+  .pnice-info-accordion__body a {
+    color: var(--pnice-sage, #4a6741);
+    text-decoration: underline;
+  }
+</style>

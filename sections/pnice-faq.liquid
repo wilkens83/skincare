@@ -1,0 +1,249 @@
+{%- comment -%}
+  P-nice FAQ section
+  ----------------------------------------------------
+  Drop-in FAQ page section with default content covering
+  the questions Stripe / payment processors expect to see
+  answered (shipping, returns, ingredients, safety, contact).
+  Merchant can edit / reorder / add via the theme editor.
+{%- endcomment -%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<section id="faq" class="pnice-faq color-{{ section.settings.color_scheme }}">
+  <div class="pnice-wrap pnice-faq__wrap">
+    <header class="pnice-faq__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="pnice-eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h1 class="pnice-faq__title">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        <p class="pnice-faq__intro">{{ section.settings.intro }}</p>
+      {%- endif -%}
+    </header>
+
+    <div class="pnice-faq__list" itemscope itemtype="https://schema.org/FAQPage">
+      {%- for block in section.blocks -%}
+        <details
+          class="pnice-faq__item"
+          {{ block.shopify_attributes }}
+          itemscope
+          itemprop="mainEntity"
+          itemtype="https://schema.org/Question"
+          {% if forloop.first and section.settings.open_first %}open{% endif %}
+        >
+          <summary>
+            <span itemprop="name">{{ block.settings.question }}</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="pnice-faq__answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text" class="rte">{{ block.settings.answer }}</div>
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.show_contact_card -%}
+      <div class="pnice-faq__contact">
+        <h2>Still have questions?</h2>
+        <p>Reach our team — we usually reply within one business day.</p>
+        <ul>
+          <li><strong>Email:</strong> <a href="mailto:support@p-nice.com">support@p-nice.com</a></li>
+          <li><strong>Phone:</strong> <a href="tel:+16165201895">616-520-1895</a></li>
+          <li><strong>Mail:</strong> 3008 Woodbridge Dr SE, Grand Rapids, MI</li>
+        </ul>
+        <a href="/pages/contact" class="pnice-faq__contact-btn">Contact Us</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .pnice-faq {
+    font-family: var(--font-body--family);
+    padding-block: clamp(40px, 6vw, 80px);
+  }
+  .pnice-faq__head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 44px;
+  }
+  .pnice-faq__title {
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--color-foreground-heading);
+    margin: 12px 0 16px;
+  }
+  .pnice-faq__intro {
+    color: var(--color-foreground);
+    opacity: 0.78;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .pnice-faq__list {
+    max-width: 760px;
+    margin: 0 auto;
+    border-top: 1px solid var(--pnice-line, #e3dccf);
+  }
+  .pnice-faq__item {
+    border-bottom: 1px solid var(--pnice-line, #e3dccf);
+  }
+  .pnice-faq__item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-foreground-heading);
+  }
+  .pnice-faq__item summary::-webkit-details-marker { display: none; }
+  .pnice-faq__item summary svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+  }
+  .pnice-faq__item[open] summary svg { transform: rotate(180deg); }
+  .pnice-faq__answer {
+    padding: 4px 0 24px;
+    color: var(--color-foreground);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .pnice-faq__answer a { color: var(--pnice-sage, #4a6741); text-decoration: underline; }
+  .pnice-faq__answer p { margin-bottom: 10px; }
+  .pnice-faq__answer ul { padding-left: 20px; margin-bottom: 10px; }
+  .pnice-faq__contact {
+    max-width: 600px;
+    margin: 48px auto 0;
+    padding: 32px;
+    border: 1px solid var(--pnice-line, #e3dccf);
+    border-radius: 6px;
+    background: var(--pnice-paper, #faf7f1);
+    text-align: center;
+  }
+  .pnice-faq__contact h2 {
+    font-family: var(--pnice-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--color-foreground-heading);
+  }
+  .pnice-faq__contact p { color: var(--color-foreground); opacity: 0.78; margin-bottom: 16px; }
+  .pnice-faq__contact ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    text-align: left;
+    display: inline-block;
+  }
+  .pnice-faq__contact li { padding: 4px 0; font-size: 14px; }
+  .pnice-faq__contact a { color: var(--pnice-sage, #4a6741); text-decoration: none; }
+  .pnice-faq__contact a:hover { text-decoration: underline; }
+  .pnice-faq__contact-btn {
+    display: inline-flex;
+    align-items: center;
+    background: var(--pnice-sage, #4a6741);
+    color: #fff !important;
+    padding: 12px 28px;
+    border-radius: 2px;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-decoration: none !important;
+  }
+  .pnice-faq__contact-btn:hover { background: var(--pnice-sage-deep, #3a4d33); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "P-nice FAQ",
+  "tag": "section",
+  "class": "section-wrapper pnice-faq-wrapper",
+  "max_blocks": 30,
+  "blocks": [
+    {
+      "type": "qa",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "How do I track my order?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>You'll receive a tracking link by email as soon as your order ships.</p>" }
+      ]
+    }
+  ],
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Help Center" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently Asked Questions" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Everything you need to know about P-nice — shipping, returns, ingredients, and how to make the most of your routine." },
+    { "type": "checkbox", "id": "open_first", "label": "Open first question by default", "default": true },
+    { "type": "checkbox", "id": "show_contact_card", "label": "Show contact card at the bottom", "default": true },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "P-nice FAQ",
+      "category": "P-nice",
+      "blocks": [
+        { "type": "qa", "settings": {
+          "question": "How long does shipping take?",
+          "answer": "<p>Standard US shipping arrives in 3–7 business days from our Grand Rapids, Michigan fulfillment center. We process orders Monday–Friday and ship within 1–2 business days of order confirmation. You'll receive a tracking link by email as soon as your order ships.</p>"
+        }},
+        { "type": "qa", "settings": {
+          "question": "Do you offer free shipping?",
+          "answer": "<p>Yes — standard shipping is free on all US orders over $60. Orders under $60 ship for a flat $5.95.</p>"
+        }},
+        { "type": "qa", "settings": {
+          "question": "Do you ship internationally?",
+          "answer": "<p>We currently ship within the United States only. We're working on expanding internationally — sign up to our email list to be the first to know.</p>"
+        }},
+        { "type": "qa", "settings": {
+          "question": "What is your return policy?",
+          "answer": "<p>We offer a 30-day satisfaction guarantee. If you're not happy with your purchase, contact us at <a href=\"mailto:support@p-nice.com\">support@p-nice.com</a> within 30 days of delivery and we'll arrange a full refund or replacement. Products should be at least 50% full; we cover return shipping in the US.</p>"
+        }},
+        { "type": "qa", "settings": {
+          "question": "Are your products vegan and cruelty-free?",
+          "answer": "<p>Yes. All P-nice products are formulated and tested without animal testing of any kind. Our Retinol and Peptide Face Serum is vegan; our Sleep Plus Collagen Cream contains marine-sourced collagen and is not vegan. Full ingredient lists are on every product page.</p>"
+        }},
+        { "type": "qa", "settings": {
+          "question": "Where are your products made?",
+          "answer": "<p>All P-nice products are formulated and manufactured in the United States. Final fulfillment is from our Grand Rapids, Michigan warehouse.</p>"
+        }},
+        { "type": "qa", "settings": {
+          "question": "Can I use retinol if I have sensitive skin?",
+          "answer": "<p>Our Retinol and Peptide Face Serum is formulated with bisabolol and phospholipids to be gentler than many retinol products, but everyone's skin is different. We recommend a patch test on your inner forearm 24 hours before first use, and starting with 2–3 nights per week. If irritation occurs, discontinue use. Pregnant or nursing? Please consult a healthcare professional before use.</p>"
+        }},
+        { "type": "qa", "settings": {
+          "question": "When should I apply each product?",
+          "answer": "<p>Both products are designed for evening use as part of your PM routine. After cleansing: apply Retinol and Peptide Face Serum first, wait 1–2 minutes, then layer Sleep Plus Collagen Cream on top. Use a broad-spectrum SPF every morning.</p>"
+        }},
+        { "type": "qa", "settings": {
+          "question": "How do I store my products?",
+          "answer": "<p>Store in a cool, dry place away from direct sunlight. Both products are shelf-stable for 12 months after opening. Refrigeration is not required.</p>"
+        }},
+        { "type": "qa", "settings": {
+          "question": "What payment methods do you accept?",
+          "answer": "<p>We accept all major credit and debit cards (Visa, Mastercard, American Express, Discover), Apple Pay, Google Pay, and Shop Pay. All payments are processed securely through Stripe and Shopify Payments.</p>"
+        }},
+        { "type": "qa", "settings": {
+          "question": "How do I contact customer support?",
+          "answer": "<p>Email us at <a href=\"mailto:support@p-nice.com\">support@p-nice.com</a> or call <a href=\"tel:+16165201895\">616-520-1895</a> (Mon–Fri, 9 am–5 pm ET). We aim to respond to all emails within one business day.</p>"
+        }}
+      ]
+    }
+  ]
+}
+{% endschema %}
