@@ -21,7 +21,7 @@
         "b2": {
           "type": "trust_item",
           "settings": {
-            "text": "Dermatologist Tested"
+            "text": "Made in the USA"
           }
         },
         "b3": {
@@ -247,8 +247,8 @@
             "compare_price": "",
             "tag": "Best Seller",
             "gold_tag": false,
-            "rating": "4.9",
-            "review_count": "842",
+            "rating": "",
+            "review_count": "",
             "link": "shopify://products/retinol-peptide-face-serum"
           }
         },
@@ -264,8 +264,8 @@
             "compare_price": "",
             "tag": "Cult Favorite",
             "gold_tag": false,
-            "rating": "4.8",
-            "review_count": "1204",
+            "rating": "",
+            "review_count": "",
             "link": "shopify://products/sleep-plus-collagen-cream"
           }
         },
@@ -281,8 +281,8 @@
             "compare_price": "$112.00",
             "tag": "Save $14",
             "gold_tag": true,
-            "rating": "5.0",
-            "review_count": "389",
+            "rating": "",
+            "review_count": "",
             "link": "shopify://collections/night-skincare"
           }
         }
@@ -293,7 +293,7 @@
         "s3"
       ],
       "settings": {
-        "eyebrow": "Loved by 10,000+",
+        "eyebrow": "The overnight ritual",
         "heading": "Best Sellers",
         "subheading": "The overnight icons our community reorders again and again.",
         "viewall_label": "View All",
@@ -436,14 +436,14 @@
       "blocks": {
         "pl1": { "type": "pledge", "settings": { "text": "Cruelty-free, always" } },
         "pl2": { "type": "pledge", "settings": { "text": "Formulated in the USA" } },
-        "pl3": { "type": "pledge", "settings": { "text": "Third-party batch tested" } },
-        "pl4": { "type": "pledge", "settings": { "text": "Recyclable packaging" } }
+        "pl3": { "type": "pledge", "settings": { "text": "Made in small batches" } },
+        "pl4": { "type": "pledge", "settings": { "text": "Founded in Grand Rapids, MI" } }
       },
       "block_order": ["pl1", "pl2", "pl3", "pl4"],
       "settings": {
         "eyebrow": "Our Promise",
         "heading": "Skincare you can trust, on every line of the label.",
-        "body": "<p>P-nice was founded on a simple idea: skincare should be honest. We won't put anything in our formulas we wouldn't use on our own skin, and we won't claim anything our ingredients can't deliver.</p><p>Every batch is formulated and bottled in the United States, third-party tested, and shipped from our team in Grand Rapids — not a distant warehouse you'll never hear from.</p>",
+        "body": "<p>P-nice was founded on a simple idea: skincare should be honest. We won't put anything in our formulas we wouldn't use on our own skin, and we won't claim anything our ingredients can't deliver.</p><p>Every batch is formulated and bottled in the United States and shipped from our team in Grand Rapids — not a distant warehouse you'll never hear from.</p>",
         "signature": "— The P-nice team",
         "cta_label": "Read our story",
         "cta_link": "/pages/about",
@@ -513,15 +513,11 @@
     "pnice_announcement",
     "pnice_hero",
     "pnice_reassurance",
-    "pnice_press",
     "pnice_categories",
     "pnice_concerns",
-    "pnice_loyalty",
     "pnice_bestsellers",
     "pnice_formula",
     "pnice_promise",
-    "pnice_reviews",
-    "pnice_journal",
     "pnice_newsletter",
     "pnice_policy_bar"
   ]
